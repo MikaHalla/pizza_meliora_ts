@@ -3,10 +3,11 @@ import {
   orderHistory,
   sendOrder,
 } from '../controllers/orderController.js';
+import protectedRoute from '../middleware/authMiddleware.js';
 
 const router = Router();
 
-router.post('/', sendOrder);
-router.get('/', orderHistory);
+router.post('/', protectedRoute, sendOrder);
+router.get('/', protectedRoute, orderHistory);
 
 export default router;

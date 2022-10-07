@@ -6,7 +6,7 @@ import Order from '../models/orderModel.js';
 // @access    private
 export const sendOrder = asyncHandler(async (req, res) => {
   const newOrder = await Order.create({
-    orderedBy: req.body.name,
+    orderedBy: req.user.name,
     item: req.body.item,
   });
   res.status(200).json(newOrder);
