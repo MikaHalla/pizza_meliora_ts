@@ -5,7 +5,7 @@ const ingredientSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  isUnwanted: {
+  removed: {
     type: Boolean,
     required: true,
   },
