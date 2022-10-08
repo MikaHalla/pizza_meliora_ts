@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Muli&display=swap');
+
+$main-theme: hsl(32, 40%, 59%);
+$debug: 1px solid rgb(255, 6, 255);
+$main-accent: rgb(0, 183, 255);
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: lighten($main-theme, 5);
+  font-family: 'Muli';
+}
+
+.mobile-menu {
+  background-color: rgba(255, 255, 255, 0.9);
+  height: 100vh;
+  width: 50vw;
+  z-index: 3;
+  position: fixed;
+  padding-top: 6em;
+  transform: translateX(200%);
+  transition: transform 0.2s linear;
+
+  &.visible {
+    transform: translateX(100%);
+  }
+
+  i {
+    color: black;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    font-size: 2em;
+    cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  h2 {
+    color: black;
+    margin: 2em 0 0 1em;
+
+    &:hover {
+      color: $main-accent;
+    }
+  }
+}
