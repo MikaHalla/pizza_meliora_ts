@@ -21,6 +21,7 @@ body {
   font-family: 'Muli';
 }
 
+//MOBILE MENU
 .mobile-menu {
   background-color: rgba(255, 255, 255, 0.9);
   height: 100vh;
@@ -56,4 +57,319 @@ body {
       color: $main-accent;
     }
   }
+}
+
+//NAVBAR
+nav {
+  width: 100vw;
+  background-color: rgba(black, 0.85);
+  color: white;
+  height: 6em;
+  z-index: 1;
+  position: fixed;
+  padding: 1em;
+
+  .wrap {
+    max-width: 1000px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .nav-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .nav-right {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .credentials {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4em;
+    font-size: 0.9em;
+    white-space: nowrap;
+
+    i {
+      margin-right: 0.6em;
+    }
+  }
+
+  img {
+    height: 100px;
+    margin-right: 1.2em;
+    box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.2);
+  }
+
+  .fa-bars {
+    font-size: 1.6em;
+    margin-left: 0.8em;
+
+    @media screen and (min-width: 768px) {
+      display: none;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+//HERO SECTION
+.hero {
+  height: 100vh;
+  max-height: 1080px;
+  width: 100%;
+  background-image: url('./assets/img/pizza-komplet.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+
+  .headline {
+    position: absolute;
+    top: 50%;
+    color: white;
+    width: min-content;
+    height: min-content;
+    padding: 1.5em;
+    border: 5px solid white;
+    border-right: none;
+    transform: translateY(-60%);
+    display: block;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.3);
+
+    h1 {
+      font-size: 3em;
+      line-height: 1.2em;
+    }
+
+    h3 {
+      font-size: 1.7em;
+      margin-top: 0.5em;
+      line-height: 1.4em;
+      text-transform: uppercase;
+    }
+
+    @media screen and (min-width: 600px) {
+      transform: scale(130%) translateY(-60%);
+    }
+  }
+
+  button {
+    background-color: rgb(84, 190, 47);
+    color: white;
+    padding: 1em;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    border: none;
+    font-weight: bold;
+    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 3em;
+
+    &:hover {
+      cursor: pointer;
+      background-color: lighten(rgb(84, 190, 47), 5);
+    }
+
+    &:active {
+      transform: scale(0.99);
+    }
+
+    @media screen and (min-width: 600px) {
+      margin-bottom: 5em;
+    }
+  }
+}
+
+//SEARCH
+.search-tips {
+  margin: 2em auto;
+  width: 85%;
+  max-width: 512px;
+  text-align: center;
+}
+
+input {
+  display: block;
+  width: 85%;
+  max-width: 512px;
+  height: 20px;
+  margin: 2em auto;
+  padding: 1em 0.7em;
+  font-size: 1.5em;
+  border: none;
+
+  &:active,
+  &:focus {
+    outline: 0;
+  }
+}
+
+//PIZZA LIST CONTAINER
+.pizza-list-container {
+  width: 100%;
+  max-width: 512px;
+  margin: 0 auto;
+  background-color: white;
+
+  @media screen and (min-width: 600px) {
+    margin-bottom: 3em;
+  }
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 0;
+  }
+
+  @media screen and (min-width: 1280px) {
+    margin-bottom: 3em;
+  }
+
+  .pizza-card {
+    padding: 0.8em;
+    position: relative;
+    min-height: 120px;
+    list-style: none;
+
+    .__headline {
+      margin-bottom: 0.7em;
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, max-content);
+      align-items: baseline;
+
+      .__number {
+        font-size: 1em;
+        color: $main-theme;
+        min-width: 2em;
+        text-align: end;
+
+        &.__ordered {
+          color: rgb(0, 183, 255);
+        }
+      }
+
+      i {
+        margin: 0 0.5em;
+
+        &.fa-regular {
+          color: lightgray;
+        }
+
+        &.fa-solid {
+          color: gold;
+        }
+      }
+
+      .__name {
+        font-size: 1em;
+        margin-right: 0.5em;
+      }
+
+      .__weight {
+        font-size: 0.8em;
+      }
+
+      .__price {
+        font-size: 1em;
+        position: absolute;
+        right: 0;
+      }
+    }
+
+    .ingredients {
+      margin: 0 5em 0 2em;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.3em;
+
+      @media screen and (min-width: 600px) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      @media screen and (min-width: 768px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      @media screen and (min-width: 1024px) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .ingredient {
+      background-color: lighten($main-theme, 37);
+      color: $main-theme;
+      text-align: center;
+      padding: 0.3em 0.8em 0.4em 0.8em;
+      border-radius: 0.5em;
+      font-size: 0.7em;
+      white-space: nowrap;
+
+      &.removed {
+        color: red;
+        background-color: lighten(red, 45);
+        text-decoration: line-through;
+      }
+    }
+
+    &:hover {
+      box-shadow: 0px 0px 20px 5px rgba(#000, 0.1);
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    &.__ordered {
+      border-left: 5px solid rgb(0, 183, 255);
+    }
+  }
+}
+
+//HISTORY
+.history {
+  background-color: rgb(80, 80, 80);
+  color: #fff;
+  padding: 2em;
+  height: 100%;
+
+  @media screen and (min-width: 600px) {
+    padding: 3em;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding: 2em;
+  }
+
+  @media screen and (min-width: 1024px) {
+    padding: 3em;
+  }
+
+  h1 {
+    margin-bottom: 1em;
+  }
+
+  p {
+    line-height: 1.5em;
+  }
+}
+
+//FOOTER
+footer {
+  background-color: black;
+  color: white;
+  padding: 3em 0;
+  text-align: center;
 }

@@ -1,15 +1,15 @@
 import { useContext } from 'react';
 import AppContext from '../context/AppContext';
-import PizzaItem from './PizzaItem';
+import PizzaItem from './PizzaCard';
 
 const PizzaList = () => {
   const { pizzas } = useContext(AppContext);
   return (
-    <section className="pizza-list">
+    <ul className="pizza-list-container">
       {pizzas.map((pizza) => (
         <PizzaItem key={pizza._id} {...pizza} />
       ))}
-    </section>
+    </ul>
   );
 };
 export default PizzaList;
