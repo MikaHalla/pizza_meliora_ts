@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import Ingredients from './Ingredients';
+import Ingredient from './Ingredient';
+
+type ingredientType = {
+  _id: string;
+  name: string;
+  removed: boolean;
+};
 
 type PizzaCardProps = {
   _id: string;
@@ -10,13 +16,7 @@ type PizzaCardProps = {
   price: number;
   weight: number;
   tags: string[];
-  ingredients: [
-    {
-      _id: string;
-      name: string;
-      removed: boolean;
-    }
-  ];
+  ingredients: ingredientType[];
 };
 
 const PizzaCard = ({
@@ -49,7 +49,11 @@ const PizzaCard = ({
           {price.toFixed(2).replace('.', ',')} €
         </h3>
       </header>
-      <Ingredients ingredients={ingredients} />
+      <div className="ingredients">
+        {ingredients.map((element) => (
+          <Ingredient {...element} />
+        ))}
+      </div>
     </li>
   );
 };

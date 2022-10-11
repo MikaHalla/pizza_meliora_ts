@@ -1,4 +1,9 @@
+import { useContext, useState } from 'react';
+import AppContext from '../context/AppContext';
+
 const Search = () => {
+  const { searchText, handleSearch } = useContext(AppContext);
+
   return (
     <section id="search">
       <p className="search-tips">
@@ -8,7 +13,12 @@ const Search = () => {
         <br />
         Kliknutím na názov pridáte pizzu medzi obľúbené.
       </p>
-      <input type="text" placeholder="Hľadaný výraz..."></input>
+      <input
+        type="text"
+        placeholder="Hľadaný výraz..."
+        value={searchText}
+        onChange={(e) => handleSearch(e)}
+      ></input>
     </section>
   );
 };
