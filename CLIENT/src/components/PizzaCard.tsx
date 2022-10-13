@@ -1,23 +1,6 @@
 import { useState } from 'react';
+import { PizzaType } from '../types/types';
 import Ingredient from './Ingredient';
-
-type ingredientType = {
-  _id: string;
-  name: string;
-  removed: boolean;
-};
-
-type PizzaCardProps = {
-  _id: string;
-  id: number;
-  number: number;
-  name: string;
-  category: string;
-  price: number;
-  weight: number;
-  tags: string[];
-  ingredients: ingredientType[];
-};
 
 const PizzaCard = ({
   number,
@@ -25,7 +8,7 @@ const PizzaCard = ({
   weight,
   price,
   ingredients,
-}: PizzaCardProps) => {
+}: PizzaType) => {
   const [favorite, setFavorite] = useState(false);
 
   return (

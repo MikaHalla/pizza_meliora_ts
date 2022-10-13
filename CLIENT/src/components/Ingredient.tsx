@@ -1,12 +1,7 @@
 import { useState } from 'react';
+import { IngredientType } from '../types/types';
 
-type IngredientProps = {
-  _id: string;
-  name: string;
-  removed: boolean;
-};
-
-const Ingredient = ({ name }: IngredientProps) => {
+const Ingredient = ({ name }: IngredientType) => {
   const [removed, setRemoved] = useState(false);
   return (
     <div
