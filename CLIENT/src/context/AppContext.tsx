@@ -1,23 +1,20 @@
-import React, {
-  createContext,
-  ReactNode,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 import { PIZZAS_PER_PAGE } from '../assets/constants/constants';
 import { PizzaType, IngredientType } from '../types/types';
 
 type AppContext = {
   pizzas: PizzaType[];
   filteredPizzas: PizzaType[];
-  displayOnlyThesePizzas: PizzaType[];
-
+  displayedPizzas: PizzaType[];
+  toggleIngredient: (_id: string, name: string) => void;
   searchText: string;
-  handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setSearchText: (searchText: string) => void;
+  // handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 
   pages: number;
   currentPage: number;
-  setCurrentPage: (currentPage: number) => void;
+  // TODO: replace any type with actual type (previous.state)
+  setCurrentPage: (currentPage: any) => void;
 };
 
 type AppProviderProps = {
@@ -28,9 +25,9 @@ const AppContext = createContext({} as AppContext);
 
 export const AppProvider = ({ children }: AppProviderProps) => {
   const [pizzas, setPizzas] = useState([]);
-  const [filteredPizzas, setFilteredPizzas] = useState([]);
-  // const [displayOnlyThesePizzas, setDisplayOnlyThesePizzas] =
-  //   useState([]);
+  const [filteredPizzas, setFilteredPizzas] = useState<PizzaType[]>(
+    []
+  );
   const [searchText, setSearchText] = useState('');
   const [pages, setPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,8 +46,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   }, []);
 
   useEffect(() => {
+    const newPizzas = [...pizzas];
     setFilteredPizzas(
-      pizzas.filter(
+      newPizzas.filter(
         (pizza: PizzaType) =>
           pizza.name
             .toLowerCase()
@@ -70,7 +68,6 @@ export const AppProvider = ({ children }: AppProviderProps) => {
               tag.toLowerCase().includes(searchText.toLowerCase())
             ))
       )
-      // .slice(indexOfFirstPizza, indexOfLastPizza)
     );
     setCurrentPage(1);
   }, [searchText]);
@@ -78,7 +75,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const indexOfLastPizza = currentPage * PIZZAS_PER_PAGE;
   const indexOfFirstPizza = indexOfLastPizza - PIZZAS_PER_PAGE;
 
-  const displayOnlyThesePizzas = filteredPizzas.slice(
+  const displayedPizzas = filteredPizzas.slice(
     indexOfFirstPizza,
     indexOfLastPizza
   );
@@ -87,8 +84,20 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     setPages(Math.ceil(filteredPizzas.length / PIZZAS_PER_PAGE));
   }, [filteredPizzas]);
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
+  // const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSearchText(e.target.value);
+  // };
+
+  const toggleIngredient = (_id: string, name: string) => {
+    const newPizzas = filteredPizzas;
+    const pizza = newPizzas.find((pizza) => pizza._id === _id);
+
+    const ingredient = pizza?.ingredients.find(
+      (ingredient) => ingredient.name === name
+    );
+
+    if (ingredient) ingredient.removed = !ingredient.removed;
+    setFilteredPizzas([...newPizzas]);
   };
 
   return (
@@ -96,10 +105,13 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       value={{
         pizzas,
         filteredPizzas,
-        displayOnlyThesePizzas,
+        displayedPizzas,
+
+        toggleIngredient,
 
         searchText,
-        handleSearch,
+        setSearchText,
+        // handleSearch,
 
         pages,
         currentPage,

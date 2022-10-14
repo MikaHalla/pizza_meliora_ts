@@ -4,16 +4,16 @@ import Pagination from './Pagination';
 import PizzaCard from './PizzaCard';
 
 const PizzaList = () => {
-  const { pages, displayOnlyThesePizzas } = useContext(AppContext);
+  const { displayedPizzas } = useContext(AppContext);
 
   return (
     <section className="pizza-list-container">
       <ul>
-        {displayOnlyThesePizzas.map((pizza) => (
+        {displayedPizzas.map((pizza) => (
           <PizzaCard key={pizza._id} {...pizza} />
         ))}
       </ul>
-      {pages > 1 && <Pagination />}
+      <Pagination />
     </section>
   );
 };

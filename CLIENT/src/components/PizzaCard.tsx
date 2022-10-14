@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { PizzaType } from '../types/types';
+import BasketButton from './BasketButton';
 import Ingredient from './Ingredient';
 
 const PizzaCard = ({
+  _id,
   number,
+  ordered,
   name,
   weight,
   price,
@@ -32,9 +35,16 @@ const PizzaCard = ({
           {price.toFixed(2).replace('.', ',')} €
         </h3>
       </header>
+
+      <BasketButton _id={_id} ordered={ordered} />
+
       <div className="ingredients">
         {ingredients.map((element) => (
-          <Ingredient {...element} />
+          <Ingredient
+            _id={_id}
+            name={element.name}
+            removed={element.removed}
+          />
         ))}
       </div>
     </li>

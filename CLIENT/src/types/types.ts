@@ -8,6 +8,7 @@ export type PizzaType = {
   _id: string;
   id: number;
   number: number;
+  ordered: number;
   name: string;
   category: string;
   price: number;

@@ -2,7 +2,11 @@ import { useContext } from 'react';
 import AppContext from '../context/AppContext';
 
 const Search = () => {
-  const { searchText, handleSearch } = useContext(AppContext);
+  const {
+    searchText,
+    setSearchText,
+    //  handleSearch
+  } = useContext(AppContext);
 
   return (
     <section id="search">
@@ -15,9 +19,9 @@ const Search = () => {
       </p>
       <input
         type="text"
-        placeholder="Hľadaný výraz..."
+        placeholder="Nájsť pizzu..."
         value={searchText}
-        onChange={(e) => handleSearch(e)}
+        onChange={(e) => setSearchText(e.target.value)}
       ></input>
     </section>
   );

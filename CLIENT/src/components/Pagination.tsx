@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext } from 'react';
 import AppContext from '../context/AppContext';
 
 const Pagination = () => {
@@ -24,8 +24,10 @@ const Pagination = () => {
     <section className="pagination">
       <button
         disabled={currentPage <= 1}
+        onClick={() =>
+          setCurrentPage((currentPage: number) => currentPage - 1)
+        }
         // onClick={() => dispatch({ type: PREVIOUS_PAGE })}
-        onClick={() => setCurrentPage(currentPage - 1)}
       >
         Predchádzajúca
       </button>
@@ -34,7 +36,9 @@ const Pagination = () => {
       </h4>
       <button
         disabled={currentPage >= pages}
-        onClick={() => setCurrentPage(currentPage + 1)}
+        onClick={() =>
+          setCurrentPage((currentPage: number) => currentPage + 1)
+        }
         // onClick={() => dispatch({ type: NEXT_PAGE })}
       >
         Nasledujúca

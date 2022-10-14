@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useContext } from 'react';
+import AppContext from '../context/AppContext';
 import { IngredientType } from '../types/types';
 
-const Ingredient = ({ name }: IngredientType) => {
-  const [removed, setRemoved] = useState(false);
+const Ingredient = ({ _id, name, removed }: IngredientType) => {
+  const { filteredPizzas, toggleIngredient } = useContext(AppContext);
   return (
     <div
       className={`ingredient ${removed && 'removed'}`}
-      onClick={() => setRemoved((prev) => !prev)}
+      onClick={() => toggleIngredient(_id, name)}
     >
       <p>{name}</p>
     </div>
