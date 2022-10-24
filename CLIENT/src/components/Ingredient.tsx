@@ -3,14 +3,21 @@ import AppContext from '../context/AppContext';
 import { IngredientType } from '../types/types';
 
 const Ingredient = ({ _id, name, removed }: IngredientType) => {
-  const { filteredPizzas, toggleIngredient } = useContext(AppContext);
+  // const { toggleIngredient } = useContext(AppContext);
+
   return (
-    <div
+    <li
       className={`ingredient ${removed && 'removed'}`}
-      onClick={() => toggleIngredient(_id, name)}
+      // onClick={() => toggleIngredient(_id, name)}
     >
-      <p>{name}</p>
-    </div>
+      {/* <input
+        type="checkbox"
+        name={name}
+        id={name}
+        defaultChecked={!removed}
+      ></input> */}
+      <label htmlFor={name}>{name}</label>
+    </li>
   );
 };
 export default Ingredient;

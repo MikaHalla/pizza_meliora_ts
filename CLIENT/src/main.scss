@@ -1,8 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Muli&display=swap');
 
-$main-theme: hsl(32, 40%, 59%);
-$debug: 1px solid rgb(255, 6, 255);
-$main-accent: rgb(0, 183, 255);
+$debug: 1px solid hsl(300, 100%, 50%);
+$primary-light: hsl(110, 40%, 75%);
+$primary-dark: hsl(110, 50%, 40%);
+$secondary-light: hsl(0, 0%, 90%);
+$secondary-dark: hsl(0, 0%, 20%);
+$overlay-light: rgba(255, 255, 255, 0.9);
+$overlay-dark: rgba(0, 0, 0, 0.9);
 
 *,
 *::after,
@@ -17,13 +21,13 @@ html {
 }
 
 body {
-  background-color: lighten($main-theme, 5);
+  background-color: $secondary-light;
   font-family: 'Muli';
 }
 
 //MOBILE MENU
 .mobile-menu {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: $overlay-light;
   height: 100vh;
   width: 50vw;
   z-index: 3;
@@ -54,7 +58,7 @@ body {
     margin: 2em 0 0 1em;
 
     &:hover {
-      color: $main-accent;
+      color: $primary-dark;
     }
   }
 }
@@ -62,7 +66,7 @@ body {
 //NAVBAR
 nav {
   width: 100vw;
-  background-color: rgba(black, 0.85);
+  background-color: $overlay-dark;
   color: white;
   height: 6em;
   z-index: 1;
@@ -171,7 +175,7 @@ nav {
   }
 
   button {
-    background-color: rgb(84, 190, 47);
+    background-color: $primary-dark;
     color: white;
     padding: 1em;
     font-size: 1.5em;
@@ -183,7 +187,7 @@ nav {
 
     &:hover {
       cursor: pointer;
-      background-color: lighten(rgb(84, 190, 47), 5);
+      background-color: lighten($primary-dark, 5);
     }
 
     &:active {
@@ -197,26 +201,28 @@ nav {
 }
 
 //SEARCH
-.search-tips {
-  margin: 2em auto;
-  width: 85%;
-  max-width: 512px;
-  text-align: center;
-}
+#search {
+  .search-tips {
+    margin: 2em auto;
+    width: 85%;
+    max-width: 512px;
+    text-align: center;
+  }
 
-input {
-  display: block;
-  width: 85%;
-  max-width: 512px;
-  height: 20px;
-  margin: 2em auto;
-  padding: 1em 0.7em;
-  font-size: 1.5em;
-  border: none;
+  input {
+    display: block;
+    width: 85%;
+    max-width: 512px;
+    height: 20px;
+    margin: 2em auto;
+    padding: 1em 0.7em;
+    font-size: 1.5em;
+    border: none;
 
-  &:active,
-  &:focus {
-    outline: 0;
+    &:active,
+    &:focus {
+      outline: 0;
+    }
   }
 }
 
@@ -242,90 +248,19 @@ input {
   .pizza-card {
     padding: 0.8em;
     position: relative;
-    min-height: 120px;
+    height: 6.5em;
     list-style: none;
+    background-color: white;
+    display: flex;
+    transition: all 0.3s ease;
 
-    .__headline {
-      margin-bottom: 0.7em;
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(4, max-content);
-      align-items: baseline;
-
-      .__number {
-        font-size: 1em;
-        color: $main-theme;
-        min-width: 2em;
-        text-align: end;
-
-        &.__ordered {
-          color: rgb(0, 183, 255);
-        }
-      }
-
-      i {
-        margin: 0 0.5em;
-
-        &.fa-regular {
-          color: lightgray;
-        }
-
-        &.fa-solid {
-          color: gold;
-        }
-      }
-
-      .__name {
-        font-size: 1em;
-        margin-right: 0.5em;
-      }
-
-      .__weight {
-        font-size: 0.8em;
-      }
-
-      .__price {
-        font-size: 1em;
-        position: absolute;
-        right: 0;
-      }
-    }
-
-    //INGREDIENTS
-    .ingredients {
-      margin: 0 5em 0 2em;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.3em;
-
-      @media screen and (min-width: 600px) {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
-      @media screen and (min-width: 768px) {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      @media screen and (min-width: 1024px) {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-
-    .ingredient {
-      background-color: lighten($main-theme, 37);
-      color: $main-theme;
-      text-align: center;
-      padding: 0.3em 0.8em 0.4em 0.8em;
-      border-radius: 0.5em;
-      font-size: 0.7em;
-      white-space: nowrap;
-      user-select: none;
-
-      &.removed {
-        color: red;
-        background-color: lighten(red, 45);
-        text-decoration: line-through;
-      }
+    &.__focused {
+      height: max-content;
+      background: linear-gradient(
+        0deg,
+        lighten($primary-light, 20) 0%,
+        rgba(253, 187, 45, 0) 50%
+      );
     }
 
     &:hover {
@@ -334,45 +269,156 @@ input {
       transition: 0.2s ease;
     }
 
-    &.__ordered {
-      border-left: 5px solid rgb(0, 183, 255);
-    }
+    .--number {
+      min-width: 2em;
 
-    //SHOPPING CART ICON
-    .basket-click {
-      position: absolute;
-      top: 0;
-      right: 0;
-      margin-top: 2.4em;
-      margin-right: 0.6em;
-      height: 45px;
-      width: 45px;
-      border-radius: 50%;
-      border: 2px solid $main-theme;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: white;
-      color: $main-theme;
-      font-size: 1.3em;
-      font-weight: 700;
-      cursor: pointer;
-
-      &:active {
-        transform: scale(0.9);
+      h5 {
+        font-size: 1em;
+        color: $primary-dark;
+        text-align: start;
       }
-    }
 
-    .pizza-item {
-      &:hover {
-        .basket-click,
-        .fa-basket-shopping {
-          color: white;
-          background-color: $main-theme;
-          transition: 0.2s ease;
+      i {
+        &.fa-regular {
+          color: $secondary-light;
+        }
+
+        &.fa-solid {
+          color: gold;
         }
       }
     }
+
+    .--body {
+      width: 100%;
+
+      header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.4em;
+
+        h5 {
+          font-size: 1em;
+          margin-right: 0.5em;
+        }
+
+        p {
+          font-size: 0.8em;
+        }
+      }
+
+      .ingredient-container {
+        width: auto;
+
+        .simple-ingredient-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.3em;
+
+          .simple-ingredient {
+            list-style: none;
+            font-size: 0.8em;
+          }
+
+          :not(:last-child)::after {
+            content: ',';
+          }
+        }
+
+        .ingredients {
+          margin-top: 1em;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.5em;
+
+          @media screen and (min-width: 600px) {
+            grid-template-columns: repeat(4, 1fr);
+          }
+
+          @media screen and (min-width: 768px) {
+            grid-template-columns: repeat(3, 1fr);
+          }
+
+          @media screen and (min-width: 1024px) {
+            grid-template-columns: repeat(4, 1fr);
+          }
+
+          .ingredient {
+            background-color: lighten($primary-light, 20);
+            color: $primary-dark;
+            text-align: center;
+            border-radius: 0.2em;
+            white-space: nowrap;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            padding: 0.1em;
+
+            &.removed {
+              color: red;
+              background-color: lighten(red, 45);
+              text-decoration: line-through;
+            }
+
+            input {
+              height: 80%;
+              margin-right: 0.4em;
+            }
+
+            label {
+              white-space: nowrap;
+              font-size: 0.7em;
+              padding: 0.1em 0 0.2em;
+              width: 100%;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+
+    .--price {
+      min-width: 3.7em;
+
+      h5 {
+        font-size: 1em;
+        text-align: end;
+      }
+
+      .basket-click {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin-right: 0.7em;
+        margin-bottom: 0.7em;
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+        border: 2px solid $secondary-light;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        color: $secondary-light;
+        font-size: 1.3em;
+        font-weight: 700;
+        cursor: pointer;
+
+        &:active {
+          transform: scale(0.9);
+        }
+      }
+    }
+
+    //   .basket-click {
+    //     border: 2px solid $primary-dark;
+    //     color: $primary-dark;
+    //     transition: 0.4s ease;
+    //   }
+    // }
+
+    // //INGREDIENTS
   }
 }
 
@@ -381,10 +427,10 @@ input {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  padding: 2em 0;
+  padding: 1.5em 0;
 
   button {
-    background-color: darken($main-theme, 30);
+    background-color: $primary-dark;
     color: white;
     font-family: inherit;
     border: none;
@@ -394,20 +440,23 @@ input {
     user-select: none;
 
     &:hover {
-      background-color: darken($main-theme, 25);
+      background-color: lighten($primary-dark, 5);
     }
 
     &:disabled {
-      background-color: lighten($main-theme, 20);
+      background-color: lighten($primary-dark, 50);
       cursor: not-allowed;
+    }
+    &:active {
+      transform: scale(0.97);
     }
   }
 }
 
 //HISTORY
 .history {
-  background-color: rgb(80, 80, 80);
-  color: #fff;
+  background-color: lighten($secondary-dark, 5);
+  color: white;
   padding: 2em;
   height: 100%;
 

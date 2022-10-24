@@ -14,6 +14,7 @@ export type PizzaType = {
   price: number;
   weight: number;
   isFavorite: boolean;
+  active: boolean;
   tags: string[];
   ingredients: IngredientType[];
 };

@@ -1,51 +1,77 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import AppContext from '../context/AppContext';
 import { PizzaType } from '../types/types';
 import BasketButton from './BasketButton';
+import ComplexIngredientList from './ComplexIngredientList';
 import Ingredient from './Ingredient';
+import SimpleIngredientList from './SimpleIngredientList';
 
 const PizzaCard = ({
   _id,
+  id,
   number,
-  ordered,
   name,
   weight,
+  ordered,
   price,
   ingredients,
+  active,
 }: PizzaType) => {
+  const { pizzas, setPizzas } = useContext(AppContext);
+
   const [favorite, setFavorite] = useState(false);
 
+  const handleFocus = (_id: string) => {
+    const newPizzas = pizzas;
+    newPizzas.map((pizza) => (pizza.active = false));
+    const activePizza = newPizzas.find((pizza) => pizza._id === _id);
+    if (activePizza) activePizza.active = true;
+    setPizzas([...newPizzas]);
+  };
+
   return (
-    <li className="pizza-card __ordered">
-      <header className="__headline">
-        <h5 className={'__number __ordered'}>{number}.</h5>
+    <li
+      className={`pizza-card ${active && '__focused'}`}
+      tabIndex={number}
+      onFocus={() => handleFocus(_id)}
+    >
+      <div className="--number">
+        <h5>{id}.</h5>
         <i
           className={`fa-star ${
             favorite ? 'fa-solid' : 'fa-regular'
           }`}
           onClick={() => setFavorite((prev) => !prev)}
         ></i>
-        <h5
-          className="__name"
-          onClick={() => console.log(ingredients)}
-        >
-          {name}
-        </h5>
-        <p className="__weight">{weight} g</p>
-        <h3 className="__price">
-          {price.toFixed(2).replace('.', ',')} €
-        </h3>
-      </header>
+      </div>
 
-      <BasketButton _id={_id} ordered={ordered} />
+      <div className="--body">
+        <header>
+          <h5>{name}</h5>
+          <p>{weight} g</p>
+        </header>
 
-      <div className="ingredients">
-        {ingredients.map((element) => (
-          <Ingredient
-            _id={_id}
-            name={element.name}
-            removed={element.removed}
-          />
-        ))}
+        <div className="ingredient-container">
+          {active ? (
+            <ComplexIngredientList
+              ingredients={ingredients}
+              _id={_id}
+            />
+          ) : (
+            <SimpleIngredientList ingredients={ingredients} />
+          )}
+        </div>
+      </div>
+
+      <div className="--price">
+        <h5>{price.toFixed(2).replace('.', ',')} €</h5>
+
+        <BasketButton
+          _id={_id}
+          name={name}
+          ordered={ordered}
+          ingredients={ingredients}
+        />
       </div>
     </li>
   );

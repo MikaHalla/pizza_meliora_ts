@@ -2,11 +2,7 @@ import { useContext } from 'react';
 import AppContext from '../context/AppContext';
 
 const Search = () => {
-  const {
-    searchText,
-    setSearchText,
-    //  handleSearch
-  } = useContext(AppContext);
+  const { searchText, setSearchText } = useContext(AppContext);
 
   return (
     <section id="search">
@@ -15,7 +11,6 @@ const Search = () => {
         pizze, ale aj kategóriu <em>(napr. "pikantná")</em>, alebo
         ingrediencu <em>(napr. "huby").</em>
         <br />
-        Kliknutím na názov pridáte pizzu medzi obľúbené.
       </p>
       <input
         type="text"
