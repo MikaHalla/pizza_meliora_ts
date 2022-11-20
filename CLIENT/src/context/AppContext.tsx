@@ -6,9 +6,11 @@ import {
   useState,
 } from 'react';
 import { PIZZAS_PER_PAGE } from '../assets/constants/constants';
-import { PizzaType, IngredientType } from '../types/types';
+import { PizzaType, CartItemType } from '../types/types';
 
 type AppContext = {
+  mobileMenu: boolean;
+  tgMobileMenu: () => void;
   pizzas: PizzaType[];
   setPizzas: (pizzas: PizzaType[]) => void;
   displayedPizzas: PizzaType[];
@@ -17,9 +19,8 @@ type AppContext = {
   setSearchText: (searchText: string) => void;
   pages: number;
   currentPage: number;
-  // toggleIngredient: (_id: string, name: string) => void;
-  // addToCart: (e: React.MouseEvent, _id: string) => void;
-
+  cartItems: CartItemType[];
+  setCartItems: (cartItems: CartItemType[]) => void;
   setCurrentPage: (currentPage: number) => void;
 };
 
@@ -34,6 +35,10 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [searchText, setSearchText] = useState('');
   const [pages, setPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  const [mobileMenu, setMobileMenu] = useState(true);
+  const [cartItems, setCartItems] = useState<CartItemType[]>([]);
+
+  const tgMobileMenu = () => setMobileMenu((prev) => !prev);
 
   const fetchPizzas = async () => {
     const res = await fetch('http://localhost:5000/api/pizza', {
@@ -97,27 +102,11 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     indexOfLastPizza
   );
 
-  // const toggleIngredient = (_id: string, name: string) => {
-  //   const newPizzas = filteredPizzas;
-  //   const pizza = newPizzas.find((pizza) => pizza._id === _id);
-
-  //   const ingredient = pizza?.ingredients.find(
-  //     (ingredient) => ingredient.name === name
-  //   );
-
-  //   if (ingredient) ingredient.removed = !ingredient.removed;
-  //   setFilteredPizzas([...newPizzas]);
-  // };
-
-  // const addToCart = (e: React.MouseEvent, _id: string) => {
-  //   // e.stopPropagation();
-  //   const pizza = filteredPizzas.find((pizza) => pizza._id === _id);
-  //   console.log(pizza);
-  // };
-
   return (
     <AppContext.Provider
       value={{
+        mobileMenu,
+        tgMobileMenu,
         pizzas,
         setPizzas,
         displayedPizzas,
@@ -127,8 +116,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         pages,
         currentPage,
         setCurrentPage,
-        // addToCart,
-        // toggleIngredient,
+        cartItems,
+        setCartItems,
       }}
     >
       {children}

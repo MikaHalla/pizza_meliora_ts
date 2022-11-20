@@ -1,5 +1,4 @@
 export type IngredientType = {
-  _id: string;
   name: string;
   removed: boolean;
 };
@@ -17,4 +16,8 @@ export type PizzaType = {
   active: boolean;
   tags: string[];
   ingredients: IngredientType[];
+};
+
+export type CartItemType = {
+  name?: string;
 };

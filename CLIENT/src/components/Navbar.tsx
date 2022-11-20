@@ -1,4 +1,9 @@
+import { useContext } from 'react';
+import AppContext from '../context/AppContext';
+import Cart from './Cart';
+
 const Navbar = () => {
+  const { tgMobileMenu } = useContext(AppContext);
   return (
     <nav>
       <div className="wrap">
@@ -17,7 +22,11 @@ const Navbar = () => {
           </div>
         </div>
         <div className="nav-right">
-          <i className="fas fa-solid fa-bars"></i>
+          <Cart />
+          <i
+            className="fas fa-solid fa-bars"
+            onClick={() => tgMobileMenu()}
+          ></i>
         </div>
       </div>
     </nav>

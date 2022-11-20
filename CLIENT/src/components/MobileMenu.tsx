@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { useContext } from 'react';
+import AppContext from '../context/AppContext';
 
 const MobileMenu = () => {
-  const [mobileMenu, setMobileMenu] = useState(true);
-
-  const tgMobileMenu = () => setMobileMenu((prev) => !prev);
+  const { mobileMenu, tgMobileMenu } = useContext(AppContext);
 
   return (
     <section

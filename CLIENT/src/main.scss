@@ -70,7 +70,7 @@ nav {
   color: white;
   height: 6em;
   z-index: 1;
-  position: fixed;
+  position: absolute;
   padding: 1em;
 
   .wrap {
@@ -134,68 +134,72 @@ nav {
   height: 100vh;
   max-height: 1080px;
   width: 100%;
-  background-image: url('./assets/img/pizza-komplet.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
   position: relative;
 
-  .headline {
-    position: absolute;
-    top: 50%;
-    color: white;
-    width: min-content;
-    height: min-content;
-    padding: 1.5em;
-    border: 5px solid white;
-    border-right: none;
-    transform: translateY(-60%);
-    display: block;
-    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.6);
-    background-color: rgba(0, 0, 0, 0.3);
+  &-image {
+    height: 100%;
+    background-image: url('./assets/img/pizza-komplet.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 
-    h1 {
-      font-size: 3em;
-      line-height: 1.2em;
+    .headline {
+      position: absolute;
+      top: 50%;
+      color: white;
+      width: min-content;
+      height: min-content;
+      padding: 1.5em;
+      border: 5px solid white;
+      border-right: none;
+      transform: translateY(-60%);
+      display: block;
+      text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.3);
+
+      h1 {
+        font-size: 3em;
+        line-height: 1.2em;
+      }
+
+      h3 {
+        font-size: 1.7em;
+        margin-top: 0.5em;
+        line-height: 1.4em;
+        text-transform: uppercase;
+      }
+
+      @media screen and (min-width: 600px) {
+        transform: scale(130%) translateY(-60%);
+      }
     }
 
-    h3 {
-      font-size: 1.7em;
-      margin-top: 0.5em;
-      line-height: 1.4em;
+    button {
+      background-color: $primary-dark;
+      color: white;
+      padding: 1em;
+      font-size: 1.5em;
       text-transform: uppercase;
-    }
+      border: none;
+      font-weight: bold;
+      box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.2);
+      margin-bottom: 3em;
 
-    @media screen and (min-width: 600px) {
-      transform: scale(130%) translateY(-60%);
-    }
-  }
+      &:hover {
+        cursor: pointer;
+        background-color: lighten($primary-dark, 5);
+      }
 
-  button {
-    background-color: $primary-dark;
-    color: white;
-    padding: 1em;
-    font-size: 1.5em;
-    text-transform: uppercase;
-    border: none;
-    font-weight: bold;
-    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.2);
-    margin-bottom: 3em;
+      &:active {
+        transform: scale(0.99);
+      }
 
-    &:hover {
-      cursor: pointer;
-      background-color: lighten($primary-dark, 5);
-    }
-
-    &:active {
-      transform: scale(0.99);
-    }
-
-    @media screen and (min-width: 600px) {
-      margin-bottom: 5em;
+      @media screen and (min-width: 600px) {
+        margin-bottom: 5em;
+      }
     }
   }
 }
@@ -324,57 +328,6 @@ nav {
             content: ',';
           }
         }
-
-        .ingredients {
-          margin-top: 1em;
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 0.5em;
-
-          @media screen and (min-width: 600px) {
-            grid-template-columns: repeat(4, 1fr);
-          }
-
-          @media screen and (min-width: 768px) {
-            grid-template-columns: repeat(3, 1fr);
-          }
-
-          @media screen and (min-width: 1024px) {
-            grid-template-columns: repeat(4, 1fr);
-          }
-
-          .ingredient {
-            background-color: lighten($primary-light, 20);
-            color: $primary-dark;
-            text-align: center;
-            border-radius: 0.2em;
-            white-space: nowrap;
-            user-select: none;
-            display: flex;
-            align-items: center;
-            justify-content: start;
-            padding: 0.1em;
-
-            &.removed {
-              color: red;
-              background-color: lighten(red, 45);
-              text-decoration: line-through;
-            }
-
-            input {
-              height: 80%;
-              margin-right: 0.4em;
-            }
-
-            label {
-              white-space: nowrap;
-              font-size: 0.7em;
-              padding: 0.1em 0 0.2em;
-              width: 100%;
-              text-align: center;
-            }
-          }
-        }
       }
     }
 
@@ -410,15 +363,6 @@ nav {
         }
       }
     }
-
-    //   .basket-click {
-    //     border: 2px solid $primary-dark;
-    //     color: $primary-dark;
-    //     transition: 0.4s ease;
-    //   }
-    // }
-
-    // //INGREDIENTS
   }
 }
 
@@ -487,4 +431,90 @@ footer {
   color: white;
   padding: 3em 0;
   text-align: center;
+}
+
+//CUSTOMIZE PIZZA
+.customize-pizza {
+  background-color: $overlay-light;
+  width: 100%;
+  max-width: 512px;
+  margin: 0 auto;
+  padding: 1em;
+  border: 1px solid black;
+  position: relative;
+
+  header {
+    height: 4em;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+
+    .number {
+      color: $primary-dark;
+    }
+
+    i {
+      font-size: 2em;
+      color: red;
+    }
+  }
+
+  .ingredient-container {
+    padding: 2em 0;
+
+    .ingredients {
+      margin-top: 1em;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5em;
+
+      .ingredient {
+        background-color: lighten($primary-light, 20);
+        color: $primary-dark;
+        text-align: center;
+        border-radius: 0.2em;
+        white-space: nowrap;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        padding: 0.1em;
+
+        &.removed {
+          color: red;
+          background-color: lighten(red, 45);
+          text-decoration: line-through;
+        }
+
+        input {
+          height: 80%;
+          margin-right: 0.4em;
+        }
+
+        label {
+          white-space: nowrap;
+          font-size: 0.7em;
+          padding: 0.1em 0 0.2em;
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .add-to-cart {
+    position: sticky;
+    height: 3em;
+    bottom: 1em;
+    padding: 1em;
+    width: 100%;
+    font-size: 1em;
+    background-color: $primary-dark;
+    color: white;
+    font-family: inherit;
+    border: none;
+  }
 }
