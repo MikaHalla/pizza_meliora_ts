@@ -5,11 +5,14 @@ import AppContext from '../context/AppContext';
 const Cart = () => {
   const { cartItems } = useContext(AppContext);
   return (
-    <div className="shopping-cart">
-      {cartItems.length > 0 ? (
-        <Link to="/shopping-cart">{cartItems.length}</Link>
-      ) : null}
-    </div>
+    <Link to="/shopping-cart">
+      <div className="shopping-cart">
+        <i className="fa-solid fa-cart-shopping"></i>
+        <div className="shopping-cart-counter">
+          {cartItems.length}
+        </div>
+      </div>
+    </Link>
   );
 };
 export default Cart;

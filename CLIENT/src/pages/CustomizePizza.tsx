@@ -5,7 +5,7 @@ import Ingredient from '../components/Ingredient';
 
 const CustomizePizza = () => {
   const { _id } = useParams();
-  const { pizzas, ingredientList, cartItems, setCartItems } =
+  const { pizzas, customIngredients, cartItems, setCartItems } =
     useContext(AppContext);
 
   const pizza = pizzas.find((pizza) => pizza._id === _id);
@@ -22,25 +22,29 @@ const CustomizePizza = () => {
         </Link>
       </header>
       <div className="ingredient-container">
-        <ul className="ingredients">
+        <ul className="ingredients standard">
           {pizza?.ingredients.map((element) => (
             <Ingredient
               name={element.name}
               removed={element.removed}
+              selected={true}
             />
           ))}
         </ul>
-        <ul className="ingredients">
-          {ingredientList.map((element) => (
-            <Ingredient name={element} removed={true} />
+        <ul className="ingredients custom">
+          {customIngredients.map((element) => (
+            <Ingredient
+              name={element.name}
+              price={element.price}
+              removed={true}
+              selected={false}
+            />
           ))}
         </ul>
       </div>
-      <Link to="/">
-        <button className="add-to-cart" onClick={() => addToCart()}>
-          Pridať do košíka
-        </button>
-      </Link>
+      <button className="add-to-cart" onClick={() => addToCart()}>
+        <Link to="/shopping-cart">Pridať do košíka</Link>
+      </button>
     </div>
   );
 };

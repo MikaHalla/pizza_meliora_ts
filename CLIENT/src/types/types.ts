@@ -1,6 +1,30 @@
+import { ReactNode } from 'react';
+
+export type AppContextProps = {
+  mobileMenu: boolean;
+  tgMobileMenu: () => void;
+  pizzas: PizzaType[];
+  setPizzas: (pizzas: PizzaType[]) => void;
+  displayedPizzas: PizzaType[];
+  customIngredients: CustomIngredientType[];
+  searchText: string;
+  setSearchText: (searchText: string) => void;
+  pages: number;
+  currentPage: number;
+  cartItems: CartItemType[];
+  setCartItems: (cartItems: CartItemType[]) => void;
+  setCurrentPage: (currentPage: number) => void;
+};
+
+export type AppProviderProps = {
+  children: ReactNode;
+};
+
 export type IngredientType = {
   name: string;
+  price?: number;
   removed: boolean;
+  selected?: boolean;
 };
 
 export type PizzaType = {
@@ -19,5 +43,12 @@ export type PizzaType = {
 };
 
 export type CartItemType = {
+  number?: number;
   name?: string;
+  price?: number;
+};
+
+export type CustomIngredientType = {
+  name: string;
+  price: number;
 };

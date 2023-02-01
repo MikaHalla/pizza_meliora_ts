@@ -94,6 +94,30 @@ nav {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+
+    .shopping-cart {
+      position: relative;
+      color: #fff;
+
+      i {
+        font-size: 1.6em;
+      }
+
+      &-counter {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 1em;
+        width: 1em;
+        padding: 0.7em;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: red;
+        transform: translateX(50%) translateY(-50%);
+      }
+    }
   }
 
   .credentials {
@@ -444,7 +468,7 @@ footer {
   position: relative;
 
   header {
-    height: 4em;
+    height: 2em;
     width: 100%;
     position: sticky;
     top: 0;
@@ -463,13 +487,31 @@ footer {
   }
 
   .ingredient-container {
-    padding: 2em 0;
+    padding: 1em 0;
 
     .ingredients {
-      margin-top: 1em;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 0.5em;
+
+      &.standard {
+        .removed {
+          color: red;
+          background-color: lighten(red, 45);
+          text-decoration: line-through;
+          border: 1px solid red;
+        }
+      }
+
+      &.custom {
+        margin-top: 1.4em;
+
+        .removed {
+          color: rgb(128, 128, 128);
+          background-color: lighten(rgb(128, 128, 128), 45);
+          border: 1px solid lighten(rgb(128, 128, 128), 45);
+        }
+      }
 
       .ingredient {
         background-color: lighten($primary-light, 20);
@@ -480,26 +522,14 @@ footer {
         user-select: none;
         display: flex;
         align-items: center;
-        justify-content: start;
-        padding: 0.1em;
+        justify-content: space-between;
+        padding: 0.3em 0.4em;
+        width: 100%;
+        border: 1px solid $primary-dark;
 
-        &.removed {
-          color: red;
-          background-color: lighten(red, 45);
-          text-decoration: line-through;
-        }
-
-        input {
-          height: 80%;
-          margin-right: 0.4em;
-        }
-
-        label {
+        p {
           white-space: nowrap;
           font-size: 0.7em;
-          padding: 0.1em 0 0.2em;
-          width: 100%;
-          text-align: center;
         }
       }
     }
@@ -512,9 +542,107 @@ footer {
     padding: 1em;
     width: 100%;
     font-size: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     background-color: $primary-dark;
-    color: white;
     font-family: inherit;
     border: none;
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
+
+//SHOPPING-CART
+.cart-items {
+  width: 100%;
+  padding: 1em;
+  max-width: 512px;
+  margin: 0 auto;
+  border: 1px solid black;
+  position: relative;
+
+  .cart-item {
+    background-color: #fff;
+    margin-bottom: 1em;
+    padding: 1em;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .price-total {
+    font-size: 1.3em;
+    font-weight: 700;
+    text-align: right;
+    padding-right: 0.2em;
+    margin: 1.5em 0 0.5em;
+  }
+
+  .shopping-button {
+    width: 100%;
+    padding: 0.7em;
+    margin-top: 0.8em;
+    border: 2px solid $primary-dark;
+    font-size: 1.3em;
+    border-radius: 0.3em;
+
+    &.continue {
+      background-color: #fff;
+      color: $primary-dark;
+    }
+
+    &.finish {
+      background-color: $primary-dark;
+      color: #fff;
+    }
+  }
+}
+
+//LOGIN / REGISTER FORM
+.form {
+  width: 100%;
+  max-width: 512px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+
+  label {
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.7em;
+    margin: 0.3em 0;
+
+    &.error {
+      border: 1px solid red;
+    }
+  }
+
+  .error-message {
+    font-size: 0.8em;
+    color: red;
+    display: block;
+    text-align: end;
+  }
+
+  button {
+    width: 100%;
+    padding: 0.7em;
+    margin-top: 1em;
+    border: 2px solid $primary-dark;
+    background-color: $primary-dark;
+    color: #fff;
+    font-size: 1.3em;
+    border-radius: 0.3em;
   }
 }

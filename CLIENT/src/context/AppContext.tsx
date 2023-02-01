@@ -1,41 +1,24 @@
-import {
-  createContext,
-  ReactNode,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { createContext, useEffect, useMemo, useState } from 'react';
 import { PIZZAS_PER_PAGE } from '../assets/constants/constants';
-import { PizzaType, CartItemType } from '../types/types';
+import {
+  AppContextProps,
+  AppProviderProps,
+  PizzaType,
+  CartItemType,
+  CustomIngredientType,
+} from '../types/types';
 
-type AppContext = {
-  mobileMenu: boolean;
-  tgMobileMenu: () => void;
-  pizzas: PizzaType[];
-  setPizzas: (pizzas: PizzaType[]) => void;
-  displayedPizzas: PizzaType[];
-  ingredientList: string[];
-  searchText: string;
-  setSearchText: (searchText: string) => void;
-  pages: number;
-  currentPage: number;
-  cartItems: CartItemType[];
-  setCartItems: (cartItems: CartItemType[]) => void;
-  setCurrentPage: (currentPage: number) => void;
-};
-
-type AppProviderProps = {
-  children: ReactNode;
-};
-
-const AppContext = createContext({} as AppContext);
+const AppContext = createContext({} as AppContextProps);
 
 export const AppProvider = ({ children }: AppProviderProps) => {
   const [pizzas, setPizzas] = useState<PizzaType[]>([]);
+  const [customIngredients, setCustomIngredients] = useState<
+    CustomIngredientType[]
+  >([]);
   const [searchText, setSearchText] = useState('');
   const [pages, setPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const [mobileMenu, setMobileMenu] = useState(true);
+  const [mobileMenu, setMobileMenu] = useState(false);
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
 
   const tgMobileMenu = () => setMobileMenu((prev) => !prev);
@@ -53,21 +36,27 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
   useEffect(() => {
     fetchPizzas();
+    fetchCustomIngredients();
   }, []);
 
-  const fetchIngredients = () => {
-    const ingredients: string[] = [];
-    pizzas.forEach((pizza) =>
-      pizza.ingredients.forEach((ingredient) => {
-        if (!ingredients.includes(ingredient.name))
-          ingredients.push(ingredient.name);
-      })
-    );
-    ingredients.sort();
-    return ingredients;
+  const fetchCustomIngredients = async () => {
+    // const ingredients: string[] = [];
+    // pizzas.forEach((pizza) =>
+    //   pizza.ingredients.forEach((ingredient) => {
+    //     if (!ingredients.includes(ingredient.name))
+    //       ingredients.push(ingredient.name);
+    //   })
+    // );
+    // ingredients.sort();
+    // return ingredients;
+    const res = await fetch('http://localhost:5000/api/ingredients', {
+      method: 'GET',
+    });
+    const data = await res.json();
+    setCustomIngredients(data);
   };
 
-  const ingredientList = useMemo(() => fetchIngredients(), [pizzas]);
+  // const ingredientList = useMemo(() => fetchIngredients(), [pizzas]);
 
   useEffect(() => setCurrentPage(1), [searchText]);
 
@@ -110,7 +99,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         pizzas,
         setPizzas,
         displayedPizzas,
-        ingredientList,
+        customIngredients,
         searchText,
         setSearchText,
         pages,

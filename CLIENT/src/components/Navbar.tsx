@@ -3,7 +3,11 @@ import AppContext from '../context/AppContext';
 import Cart from './Cart';
 
 const Navbar = () => {
-  const { tgMobileMenu } = useContext(AppContext);
+  const { tgMobileMenu, cartItems } = useContext(AppContext);
+  const currentUser = JSON.parse(
+    localStorage.getItem('currentUser') || ''
+  );
+
   return (
     <nav>
       <div className="wrap">
@@ -22,7 +26,9 @@ const Navbar = () => {
           </div>
         </div>
         <div className="nav-right">
-          <Cart />
+          <div className="username">{currentUser.name}</div>
+          {cartItems.length > 0 ? <Cart /> : null}
+
           <i
             className="fas fa-solid fa-bars"
             onClick={() => tgMobileMenu()}

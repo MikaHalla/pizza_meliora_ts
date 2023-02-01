@@ -6,6 +6,7 @@ import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
 import pizzaRoutes from './routes/pizzaRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+import ingredientRoutes from './routes/ingredientRoutes.js';
 import connectDB from './config/db.js';
 import errorHandler from './middleware/errorMiddleware.js';
 // import authMiddleware from './middleware/authMiddleware.js';
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/users', userRoutes);
 app.use('/api/pizza', pizzaRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/ingredients', ingredientRoutes);
 
 app.use(errorHandler);
 // app.use(authMiddleware);
