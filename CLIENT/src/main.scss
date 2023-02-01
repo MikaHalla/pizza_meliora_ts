@@ -65,7 +65,7 @@ body {
 
 //NAVBAR
 nav {
-  width: 100vw;
+  width: 100%;
   background-color: $overlay-dark;
   color: white;
   height: 6em;
@@ -458,22 +458,42 @@ footer {
 }
 
 //CUSTOMIZE PIZZA
+.curtain {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 8;
+  overflow: hidden;
+}
+
 .customize-pizza {
-  background-color: $overlay-light;
+  background-color: #fff;
   width: 100%;
   max-width: 512px;
+  height: fit-content;
+  max-height: 100%;
   margin: 0 auto;
-  padding: 1em;
-  border: 1px solid black;
-  position: relative;
+  padding: 0 1.5em;
+  border: 2px solid $overlay-dark;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9;
+  overflow: scroll;
 
   header {
-    height: 2em;
+    height: 5em;
     width: 100%;
     position: sticky;
     top: 0;
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    margin-bottom: 0.5em;
     background-color: #fff;
 
     .number {
@@ -487,14 +507,18 @@ footer {
   }
 
   .ingredient-container {
-    padding: 1em 0;
-
     .ingredients {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(1, 1fr);
       gap: 0.5em;
 
+      @media screen and (min-width: 480px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
       &.standard {
+        grid-template-columns: repeat(2, 1fr);
+
         .removed {
           color: red;
           background-color: lighten(red, 45);
@@ -523,34 +547,43 @@ footer {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0.3em 0.4em;
+        padding: 0.4em;
         width: 100%;
         border: 1px solid $primary-dark;
 
+        &:hover {
+          cursor: pointer;
+        }
+
         p {
           white-space: nowrap;
-          font-size: 0.7em;
+          font-size: 0.8em;
         }
       }
     }
   }
 
   .add-to-cart {
-    position: sticky;
-    height: 3em;
-    bottom: 1em;
-    padding: 1em;
+    height: 6em;
     width: 100%;
-    font-size: 1em;
+    position: sticky;
+    bottom: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 1.5em 0;
+    background-color: #fff;
 
-    background-color: $primary-dark;
-    font-family: inherit;
-    border: none;
-
-    a {
+    &-button {
+      font-size: 1em;
+      width: 100%;
+      height: 100%;
+      background-color: $primary-dark;
+      font-family: inherit;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: white;
       text-decoration: none;
     }

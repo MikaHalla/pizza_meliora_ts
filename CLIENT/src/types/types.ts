@@ -22,9 +22,8 @@ export type AppProviderProps = {
 
 export type IngredientType = {
   name: string;
-  price?: number;
+  price: number;
   removed: boolean;
-  selected?: boolean;
 };
 
 export type PizzaType = {

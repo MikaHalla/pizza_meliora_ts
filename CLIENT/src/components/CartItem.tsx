@@ -5,7 +5,7 @@ const CartItem = ({ price, name, number }: CartItemType) => {
     <li className="cart-item">
       <p>{number}.</p>
       <p>{name}</p>
-      <p>{price.toFixed(2)} €</p>
+      <p>{price?.toFixed(2)} €</p>
       <p>X</p>
     </li>
   );

@@ -1,4 +1,4 @@
-import { createContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { PIZZAS_PER_PAGE } from '../assets/constants/constants';
 import {
   AppContextProps,
@@ -40,23 +40,12 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   }, []);
 
   const fetchCustomIngredients = async () => {
-    // const ingredients: string[] = [];
-    // pizzas.forEach((pizza) =>
-    //   pizza.ingredients.forEach((ingredient) => {
-    //     if (!ingredients.includes(ingredient.name))
-    //       ingredients.push(ingredient.name);
-    //   })
-    // );
-    // ingredients.sort();
-    // return ingredients;
     const res = await fetch('http://localhost:5000/api/ingredients', {
       method: 'GET',
     });
     const data = await res.json();
     setCustomIngredients(data);
   };
-
-  // const ingredientList = useMemo(() => fetchIngredients(), [pizzas]);
 
   useEffect(() => setCurrentPage(1), [searchText]);
 

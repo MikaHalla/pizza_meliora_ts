@@ -4,7 +4,7 @@ import {
   Route,
 } from 'react-router-dom';
 
-import CustomizePizza from './pages/CustomizePizza';
+import CustomizePizzaPage from './pages/CustomizePizzaPage';
 import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -15,7 +15,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/:_id" element={<CustomizePizza />} />
+        <Route path="/:_id" element={<CustomizePizzaPage />} />
         <Route path="/shopping-cart" element={<ShoppingCartPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
