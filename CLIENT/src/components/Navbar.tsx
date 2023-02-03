@@ -1,12 +1,26 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import AppContext from '../context/AppContext';
+import { CurrentUserType } from '../types/types';
 import Cart from './Cart';
 
 const Navbar = () => {
   const { tgMobileMenu, cartItems } = useContext(AppContext);
-  const currentUser = JSON.parse(
-    localStorage.getItem('currentUser') || ''
-  );
+  const [currentUser, setCurrentUser] =
+    useState<CurrentUserType>(null);
+
+  const fetchUser = () => {
+    const user = localStorage.getItem('currentUser');
+    const parsedUser = user ? JSON.parse(user) : null;
+    setCurrentUser(parsedUser);
+  };
+
+  const logoutUser = () => {
+    localStorage.removeItem('currentUser');
+    setCurrentUser(null);
+  };
+
+  useEffect(() => fetchUser(), []);
 
   return (
     <nav>
@@ -26,7 +40,19 @@ const Navbar = () => {
           </div>
         </div>
         <div className="nav-right">
-          <div className="username">{currentUser.name}</div>
+          <div className="user">
+            {currentUser ? (
+              <>
+                <Link to="/profile">{currentUser.name}</Link>
+                <Link to="/" onClickCapture={() => logoutUser()}>
+                  odhlásiť sa
+                </Link>
+              </>
+            ) : (
+              <Link to="/login">Login</Link>
+            )}
+          </div>
+
           {cartItems.length > 0 ? <Cart /> : null}
 
           <i

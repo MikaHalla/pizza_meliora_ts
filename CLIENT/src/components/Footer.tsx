@@ -1,5 +1,5 @@
 const Footer = () => {
-  return <footer> &copy; 2022 Mika Halla</footer>;
+  return <footer> &copy; 2023 Mika Halla</footer>;
 };
 
 export default Footer;

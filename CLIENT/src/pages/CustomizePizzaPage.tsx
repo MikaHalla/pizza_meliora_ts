@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import Ingredient from '../components/Ingredient';
@@ -7,8 +7,13 @@ import Modal from '../components/Modal';
 
 const CustomizePizza = () => {
   const { _id } = useParams();
-  const { pizzas, customIngredients, cartItems, setCartItems } =
-    useContext(AppContext);
+  const {
+    pizzas,
+    customIngredients,
+    cartItems,
+    setCartItems,
+    setModalOpen,
+  } = useContext(AppContext);
 
   const pizza = pizzas.find((pizza) => pizza._id === _id);
 
@@ -22,7 +27,7 @@ const CustomizePizza = () => {
           <header>
             <h2 className="number">{pizza?.id}.</h2>
             <h2>{pizza?.name}</h2>
-            <Link to="/">
+            <Link to="/" onClickCapture={() => setModalOpen(false)}>
               <i className="fa-solid fa-xmark"></i>
             </Link>
           </header>
@@ -48,15 +53,15 @@ const CustomizePizza = () => {
             </ul>
           </div>
 
-          <div className="add-to-cart">
+          <footer>
             <Link
-              className="add-to-cart-button"
               to="/shopping-cart"
+              className="add-to-cart-button"
               onClick={() => addToCart()}
             >
               Pridať do košíka
             </Link>
-          </div>
+          </footer>
         </section>
       </Modal>
     </>

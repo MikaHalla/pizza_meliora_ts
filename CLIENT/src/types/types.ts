@@ -3,6 +3,8 @@ import { ReactNode } from 'react';
 export type AppContextProps = {
   mobileMenu: boolean;
   tgMobileMenu: () => void;
+  modalOpen: boolean;
+  setModalOpen: (p: boolean) => void;
   pizzas: PizzaType[];
   setPizzas: (pizzas: PizzaType[]) => void;
   displayedPizzas: PizzaType[];
@@ -42,6 +44,7 @@ export type PizzaType = {
 };
 
 export type CartItemType = {
+  id?: number;
   number?: number;
   name?: string;
   price?: number;
@@ -51,3 +54,8 @@ export type CustomIngredientType = {
   name: string;
   price: number;
 };
+
+export type CurrentUserType = {
+  name: string;
+  token: string;
+} | null;

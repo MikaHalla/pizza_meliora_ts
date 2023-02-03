@@ -6,7 +6,8 @@ import AppContext from '../context/AppContext';
 import Home from './Home';
 
 const ShoppingCartPage = () => {
-  const { cartItems, setCartItems } = useContext(AppContext);
+  const { cartItems, setCartItems, setModalOpen } =
+    useContext(AppContext);
 
   const sendOrder = () => {
     console.log(cartItems);
@@ -21,36 +22,40 @@ const ShoppingCartPage = () => {
           <ul>
             {cartItems.map((item) => (
               <CartItem
-                number={item.number}
+                id={item.id}
                 name={item.name}
                 price={item.price}
               />
             ))}
           </ul>
-          <div className="price-total">
-            Celkom:{' '}
-            {cartItems
-              .reduce(
-                (prev, curr) =>
-                  curr.price ? curr.price + prev : 0 + prev,
-                0
-              )
-              .toFixed(2)}{' '}
-            €
-          </div>
-          <Link to="/">
-            <button className="shopping-button continue">
-              Pokračovať v nákupe
-            </button>
-          </Link>
-          <Link to="/">
-            <button
-              className="shopping-button finish"
-              onClick={() => sendOrder()}
-            >
-              Objednať
-            </button>
-          </Link>
+          <footer>
+            <div className="price-total">
+              Celkom:{' '}
+              {cartItems
+                .reduce(
+                  (prev, curr) =>
+                    curr.price ? curr.price + prev : 0 + prev,
+                  0
+                )
+                .toFixed(2)
+                .replace('.', ',')}{' '}
+              €
+            </div>
+            <Link to="/" onClickCapture={() => setModalOpen(false)}>
+              <button className="shopping-button continue">
+                Pokračovať v nákupe
+              </button>
+            </Link>
+
+            <Link to="/" onClickCapture={() => setModalOpen(false)}>
+              <button
+                className="shopping-button finish"
+                onClick={() => sendOrder()}
+              >
+                Objednať
+              </button>
+            </Link>
+          </footer>
         </section>
       </Modal>
     </>

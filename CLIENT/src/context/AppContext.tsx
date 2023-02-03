@@ -19,6 +19,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const [pages, setPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
 
   const tgMobileMenu = () => setMobileMenu((prev) => !prev);
@@ -85,6 +86,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       value={{
         mobileMenu,
         tgMobileMenu,
+        modalOpen,
+        setModalOpen,
         pizzas,
         setPizzas,
         displayedPizzas,
