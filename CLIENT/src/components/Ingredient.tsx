@@ -1,21 +1,23 @@
-import { useEffect, useState } from 'react';
 import { IngredientType } from '../types/types';
 
-const Ingredient = ({ name, price, removed }: IngredientType) => {
-  const [checked, setChecked] = useState<boolean>();
-
-  useEffect(() => setChecked(!removed), []);
-
-  const handleClick = () => {
-    setChecked((prev) => !prev);
-  };
-
+const Ingredient = ({
+  name,
+  price,
+  checked,
+  onClick,
+}: IngredientType) => {
   return (
     <li
       className={`ingredient ${!checked && 'removed'}`}
-      onClick={() => handleClick()}
+      onClick={onClick}
     >
-      <input type="checkbox" checked={checked} />
+      {/* <input type="checkbox" checked={checked} /> */}
+      {checked ? (
+        <i className="fa-regular fa-square-check"></i>
+      ) : (
+        <i className="fa-regular fa-square"></i>
+      )}
+
       <p>{name}</p>
       <p>{price ? `+ ${price.toFixed(2)} €` : null}</p>
     </li>

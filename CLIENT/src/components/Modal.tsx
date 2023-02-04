@@ -9,8 +9,6 @@ const Modal = ({ children }: PropsWithChildren) => {
     setModalOpen(true);
   }, []);
 
-  useEffect(() => console.log(modalOpen), [modalOpen]);
-
   //disable scroll
   modalOpen
     ? (document.body.style.overflow = 'hidden')

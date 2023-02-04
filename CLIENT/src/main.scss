@@ -512,9 +512,8 @@ footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 0.5em;
+    // margin-bottom: 0.5em;
     background-color: #fff;
-
     .number {
       color: $primary-dark;
     }
@@ -541,8 +540,11 @@ footer {
         .removed {
           color: red;
           background-color: lighten(red, 45);
-          text-decoration: line-through;
           border: 1px solid red;
+
+          p {
+            text-decoration: line-through;
+          }
         }
       }
 

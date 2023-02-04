@@ -8,7 +8,8 @@ export type AppContextProps = {
   pizzas: PizzaType[];
   setPizzas: (pizzas: PizzaType[]) => void;
   displayedPizzas: PizzaType[];
-  customIngredients: CustomIngredientType[];
+  customIngredients: IngredientType[];
+  setCustomIngredients: (customIngredients: IngredientType[]) => void;
   searchText: string;
   setSearchText: (searchText: string) => void;
   pages: number;
@@ -25,7 +26,9 @@ export type AppProviderProps = {
 export type IngredientType = {
   name: string;
   price: number;
-  removed: boolean;
+  removed?: boolean;
+  checked?: boolean;
+  onClick?: () => void;
 };
 
 export type PizzaType = {
@@ -38,9 +41,9 @@ export type PizzaType = {
   price: number;
   weight: number;
   isFavorite: boolean;
-  active: boolean;
   tags: string[];
   ingredients: IngredientType[];
+  customIngredients: IngredientType[];
 };
 
 export type CartItemType = {
@@ -48,11 +51,22 @@ export type CartItemType = {
   number?: number;
   name?: string;
   price?: number;
+  customIngredients?: CustomIngredientsType[];
+  removedIngredients?: RemovedIngredientsType[];
 };
 
-export type CustomIngredientType = {
+export type CustomIngredientsType = {
+  _id: string;
   name: string;
   price: number;
+  checked: boolean;
+};
+
+export type RemovedIngredientsType = {
+  _id: string;
+  name: string;
+  removed: boolean;
+  checked: boolean;
 };
 
 export type CurrentUserType = {

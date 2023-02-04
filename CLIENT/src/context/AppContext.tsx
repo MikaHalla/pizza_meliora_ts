@@ -5,7 +5,7 @@ import {
   AppProviderProps,
   PizzaType,
   CartItemType,
-  CustomIngredientType,
+  IngredientType,
 } from '../types/types';
 
 const AppContext = createContext({} as AppContextProps);
@@ -13,7 +13,7 @@ const AppContext = createContext({} as AppContextProps);
 export const AppProvider = ({ children }: AppProviderProps) => {
   const [pizzas, setPizzas] = useState<PizzaType[]>([]);
   const [customIngredients, setCustomIngredients] = useState<
-    CustomIngredientType[]
+    IngredientType[]
   >([]);
   const [searchText, setSearchText] = useState('');
   const [pages, setPages] = useState(1);
@@ -30,7 +30,6 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     });
     const data: PizzaType[] = await res.json();
     data.sort((a, b) => (a.id > b.id ? 1 : -1));
-    data.map((element: PizzaType) => (element.active = false));
 
     setPizzas(data);
   };
@@ -92,6 +91,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setPizzas,
         displayedPizzas,
         customIngredients,
+        setCustomIngredients,
         searchText,
         setSearchText,
         pages,
