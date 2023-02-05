@@ -4,18 +4,12 @@ import AppContext from '../context/AppContext';
 import Ingredient from '../components/Ingredient';
 import Home from './Home';
 import Modal from '../components/Modal';
-import { PizzaType } from '../types/types';
+import { PizzaType, IngredientType } from '../types/types';
 
 const CustomizePizza = () => {
   const { _id } = useParams();
-  const {
-    pizzas,
-    customIngredients,
-    setCustomIngredients,
-    cartItems,
-    setCartItems,
-    setModalOpen,
-  } = useContext(AppContext);
+  const { pizzas, cartItems, setCartItems, setModalOpen } =
+    useContext(AppContext);
 
   const [activePizza, setActivePizza] = useState<PizzaType>({
     _id: '',
@@ -32,20 +26,26 @@ const CustomizePizza = () => {
     customIngredients: [],
   });
 
+  const [customIngredients, setCustomIngredients] = useState<
+    IngredientType[]
+  >([]);
+
+  const fetchCustomIngredients = async () => {
+    const res = await fetch('http://localhost:5000/api/ingredients', {
+      method: 'GET',
+    });
+    const data = await res.json();
+    setCustomIngredients(data);
+  };
+
   useEffect(() => {
     const pizza = pizzas.find((pizza) => pizza._id === _id);
     if (pizza) {
       pizza.ingredients.map((i) => (i.checked = true));
 
       setActivePizza({ ...pizza });
+      fetchCustomIngredients();
     }
-  }, []);
-
-  // reset custom ingredients on mount
-  useEffect(() => {
-    const ingredients = [...customIngredients];
-    ingredients.map((i) => (i.checked = false));
-    setCustomIngredients([...ingredients]);
   }, []);
 
   const handleIngredientClick = (name: string) => {
@@ -68,39 +68,22 @@ const CustomizePizza = () => {
     }
   };
 
-  // const addToCart = () => {
-  //   let newOrder = {};
+  const addToCart = () => {
+    const addedIngredients = customIngredients.filter(
+      (i) => i.checked === true
+    );
+    const removedIngredients = activePizza.ingredients.filter(
+      (i) => i.checked === false
+    );
+    const pizza = {
+      ...activePizza,
+      customIngredients: [...addedIngredients],
+      removedIngredients: [...removedIngredients],
+    };
 
-  //   const addedIngredients = customIngredients.filter(
-  //     (i) => i.checked === true
-  //   );
-
-  //   if (addedIngredients) {
-  //     newOrder = {
-  //       ...activePizza,
-  //       addedIngredients: [...addedIngredients],
-  //     };
-  //   }
-
-  //   const removedIngredients = activePizza.ingredients.filter(
-  //     (i) => i.checked === false
-  //   );
-
-  //   if (removedIngredients) {
-  //     newOrder = {
-  //       ...newOrder,
-  //       removedIngredients: [...removedIngredients],
-  //     };
-  //   }
-
-  //   // setCartItems({
-  //   //   ...activePizza,
-  //   //   removedIngredients: [...removedIngredients],
-  //   //   customIngredients: [...addedIngredients],
-  //   // });
-
-  //   setCartItems({ ...newOrder });
-  // };
+    console.log(pizza);
+    setCartItems([...cartItems, { ...pizza }]);
+  };
 
   return (
     <>
@@ -150,7 +133,7 @@ const CustomizePizza = () => {
             <Link
               to="/shopping-cart"
               className="add-to-cart-button"
-              // onClick={() => addToCart()}
+              onClick={() => addToCart()}
             >
               Pridať do košíka
             </Link>

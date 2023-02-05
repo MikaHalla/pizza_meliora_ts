@@ -11,7 +11,6 @@ const Ingredient = ({
       className={`ingredient ${!checked && 'removed'}`}
       onClick={onClick}
     >
-      {/* <input type="checkbox" checked={checked} /> */}
       {checked ? (
         <i className="fa-regular fa-square-check"></i>
       ) : (

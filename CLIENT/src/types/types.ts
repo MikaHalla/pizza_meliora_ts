@@ -8,8 +8,8 @@ export type AppContextProps = {
   pizzas: PizzaType[];
   setPizzas: (pizzas: PizzaType[]) => void;
   displayedPizzas: PizzaType[];
-  customIngredients: IngredientType[];
-  setCustomIngredients: (customIngredients: IngredientType[]) => void;
+  // customIngredients: IngredientType[];
+  // setCustomIngredients: (customIngredients: IngredientType[]) => void;
   searchText: string;
   setSearchText: (searchText: string) => void;
   pages: number;
@@ -24,6 +24,7 @@ export type AppProviderProps = {
 };
 
 export type IngredientType = {
+  _id: string;
   name: string;
   price: number;
   removed?: boolean;
@@ -43,30 +44,26 @@ export type PizzaType = {
   isFavorite: boolean;
   tags: string[];
   ingredients: IngredientType[];
-  customIngredients: IngredientType[];
+  customIngredients?: IngredientType[];
+  removedIngredients?: IngredientType[];
 };
 
 export type CartItemType = {
-  id?: number;
+  _id?: string;
+  id: number;
   number?: number;
+  ordered?: number;
   name?: string;
-  price?: number;
-  customIngredients?: CustomIngredientsType[];
-  removedIngredients?: RemovedIngredientsType[];
-};
-
-export type CustomIngredientsType = {
-  _id: string;
-  name: string;
+  category?: string;
   price: number;
-  checked: boolean;
-};
-
-export type RemovedIngredientsType = {
-  _id: string;
-  name: string;
-  removed: boolean;
-  checked: boolean;
+  weight?: number;
+  isFavorite?: boolean;
+  tags?: string[];
+  added?: IngredientType[];
+  removed?: IngredientType[];
+  ingredients?: IngredientType[];
+  customIngredients?: IngredientType[];
+  removedIngredients?: IngredientType[];
 };
 
 export type CurrentUserType = {

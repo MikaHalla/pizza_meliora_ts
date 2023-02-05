@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { PizzaType } from '../types/types';
 import BasketButton from './BasketButton';
 import SimpleIngredientList from './SimpleIngredientList';
@@ -8,16 +9,11 @@ const PizzaCard = ({
   number,
   name,
   weight,
-  ordered,
   price,
   ingredients,
-  active,
 }: PizzaType) => {
   return (
-    <li
-      className={`pizza-card ${active && '__focused'}`}
-      tabIndex={number}
-    >
+    <Link to={`/${_id}`} className="pizza-card" tabIndex={number}>
       <div className="--number">
         <h5>{id}.</h5>
       </div>
@@ -38,7 +34,7 @@ const PizzaCard = ({
 
         <BasketButton _id={_id} />
       </div>
-    </li>
+    </Link>
   );
 };
 export default PizzaCard;

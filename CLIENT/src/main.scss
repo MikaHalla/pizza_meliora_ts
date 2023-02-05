@@ -291,21 +291,13 @@ nav {
     list-style: none;
     background-color: white;
     display: flex;
-    transition: all 0.3s ease;
-
-    &.__focused {
-      height: max-content;
-      background: linear-gradient(
-        0deg,
-        lighten($primary-light, 20) 0%,
-        rgba(253, 187, 45, 0) 50%
-      );
-    }
+    text-decoration: none;
+    color: $secondary-dark;
 
     &:hover {
-      box-shadow: 0px 0px 20px 5px rgba(#000, 0.1);
+      box-shadow: 0px 0px 20px -2px rgba(#000, 0.1);
+      z-index: 1;
       cursor: pointer;
-      transition: 0.2s ease;
     }
 
     .--number {
@@ -512,7 +504,6 @@ footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    // margin-bottom: 0.5em;
     background-color: #fff;
     .number {
       color: $primary-dark;
@@ -629,6 +620,10 @@ footer {
       &:hover {
         cursor: pointer;
       }
+    }
+
+    .removed-ingredients.name {
+      color: red;
     }
   }
 

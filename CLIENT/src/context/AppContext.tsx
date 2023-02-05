@@ -5,16 +5,12 @@ import {
   AppProviderProps,
   PizzaType,
   CartItemType,
-  IngredientType,
 } from '../types/types';
 
 const AppContext = createContext({} as AppContextProps);
 
 export const AppProvider = ({ children }: AppProviderProps) => {
   const [pizzas, setPizzas] = useState<PizzaType[]>([]);
-  const [customIngredients, setCustomIngredients] = useState<
-    IngredientType[]
-  >([]);
   const [searchText, setSearchText] = useState('');
   const [pages, setPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,16 +32,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
   useEffect(() => {
     fetchPizzas();
-    fetchCustomIngredients();
   }, []);
-
-  const fetchCustomIngredients = async () => {
-    const res = await fetch('http://localhost:5000/api/ingredients', {
-      method: 'GET',
-    });
-    const data = await res.json();
-    setCustomIngredients(data);
-  };
 
   useEffect(() => setCurrentPage(1), [searchText]);
 
@@ -90,8 +77,6 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         pizzas,
         setPizzas,
         displayedPizzas,
-        customIngredients,
-        setCustomIngredients,
         searchText,
         setSearchText,
         pages,
