@@ -8,8 +8,6 @@ export type AppContextProps = {
   pizzas: PizzaType[];
   setPizzas: (pizzas: PizzaType[]) => void;
   displayedPizzas: PizzaType[];
-  // customIngredients: IngredientType[];
-  // setCustomIngredients: (customIngredients: IngredientType[]) => void;
   searchText: string;
   setSearchText: (searchText: string) => void;
   pages: number;
@@ -20,6 +18,10 @@ export type AppContextProps = {
 };
 
 export type AppProviderProps = {
+  children: ReactNode;
+};
+
+export type ModalType = {
   children: ReactNode;
 };
 
@@ -70,3 +72,21 @@ export type CurrentUserType = {
   name: string;
   token: string;
 } | null;
+
+export type FormInputType = {
+  type: string;
+  name: string;
+  label: string;
+  placeholder: string;
+  errorMessage: string;
+  required: boolean;
+  pattern: string;
+  autoFocus?: boolean;
+};
+
+export type FormValuesType = {
+  [key: string]: string;
+  username: string;
+  password: string;
+  confirmPassword: string;
+};

@@ -7,10 +7,10 @@ import bcrypt from 'bcryptjs';
 // @route    POST /api/users/register
 // @access   public
 export const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, password } = req.body;
 
   // is all the required form info in the request body?
-  if (!name || !email || !password) {
+  if (!name || !password) {
     res.status(400);
     throw new Error('Please fill all required fields.');
   }
@@ -29,7 +29,6 @@ export const registerUser = asyncHandler(async (req, res) => {
   // create user
   const user = await User.create({
     name,
-    email,
     password: hashedPassword,
   });
 

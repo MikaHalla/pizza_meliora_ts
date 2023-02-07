@@ -1,5 +1,5 @@
-import { SyntheticEvent, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FormEvent, useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Modal from '../components/Modal';
 import AppContext from '../context/AppContext';
 import Home from './Home';
@@ -12,7 +12,7 @@ const LoginPage = () => {
   });
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: SyntheticEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     // send user data to server
     e.preventDefault();
     const res = await fetch('http://localhost:5000/api/users/login', {
@@ -88,6 +88,10 @@ const LoginPage = () => {
 
           <button type="submit">Prihlásiť</button>
         </form>
+        <p>
+          Nemám účet.
+          <Link to="/register"> Registrovať.</Link>
+        </p>
       </Modal>
     </>
   );

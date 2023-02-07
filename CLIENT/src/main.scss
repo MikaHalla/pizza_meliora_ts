@@ -678,26 +678,43 @@ footer {
   justify-content: center;
   padding: 1em;
 
-  label {
+  .input-field {
     width: 100%;
     margin-bottom: 1em;
-  }
+    position: relative;
 
-  input {
-    width: 100%;
-    padding: 0.7em;
-    margin: 0.3em 0;
-
-    &.error {
+    :invalid[focused='true'] {
       border: 1px solid red;
-    }
-  }
 
-  .error-message {
-    font-size: 0.8em;
-    color: red;
-    display: block;
-    text-align: end;
+      ~ .error-message {
+        display: block;
+      }
+    }
+
+    .error-message {
+      font-size: 0.8em;
+      color: red;
+      display: none;
+      text-align: end;
+    }
+
+    label {
+      font-size: 0.8em;
+      font-weight: 700;
+    }
+
+    input {
+      width: 100%;
+      padding: 1em;
+      margin: 0.3em 0;
+    }
+
+    .show-password {
+      cursor: pointer;
+      position: absolute;
+      right: 0.8em;
+      top: 1.2em;
+    }
   }
 
   button {
@@ -709,5 +726,6 @@ footer {
     color: #fff;
     font-size: 1.3em;
     border-radius: 0.3em;
+    cursor: pointer;
   }
 }

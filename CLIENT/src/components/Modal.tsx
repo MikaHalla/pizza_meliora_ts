@@ -1,7 +1,8 @@
-import { PropsWithChildren, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import AppContext from '../context/AppContext';
+import { ModalType } from '../types/types';
 
-const Modal = ({ children }: PropsWithChildren) => {
+const Modal = ({ children }: ModalType) => {
   const { modalOpen, setModalOpen } = useContext(AppContext);
 
   //activate disable scroll on mount
