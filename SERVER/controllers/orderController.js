@@ -7,24 +7,25 @@ import Pizza from '../models/pizzaModel.js';
 // @access    private
 export const sendOrder = asyncHandler(async (req, res) => {
   const orderedBy = req.user._id;
-  const tempItems = await Pizza.find({ _id: req.body.item });
+  const completeOrder = JSON.parse(req.body.order);
 
-  const items = [];
+  const simplifiedOrder = [];
 
-  tempItems.map((item) => {
-    items.push({
+  completeOrder.map((item) => {
+    simplifiedOrder.push({
       id: item._id,
       price: item.price,
-      ingredients: item.ingredients,
+      customIngredients: item.customIngredients,
+      removedIngredients: item.removedIngredients,
     });
   });
 
-  const placeOrder = await Order.create({
+  const newOrder = await Order.create({
     orderedBy,
-    items: [...items],
+    items: [...simplifiedOrder],
   });
 
-  res.status(201).json(placeOrder);
+  res.status(200).json(newOrder);
 });
 
 // @desc    all orders by active user

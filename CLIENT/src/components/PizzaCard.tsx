@@ -32,7 +32,7 @@ const PizzaCard = ({
       <div className="--price">
         <h5>{price.toFixed(2).replace('.', ',')} €</h5>
 
-        <BasketButton _id={_id} />
+        <BasketButton />
       </div>
     </Link>
   );

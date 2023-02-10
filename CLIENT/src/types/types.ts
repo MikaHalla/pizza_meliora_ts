@@ -26,7 +26,7 @@ export type ModalType = {
 };
 
 export type IngredientType = {
-  _id: string;
+  _id?: string;
   name: string;
   price: number;
   removed?: boolean;
@@ -53,6 +53,7 @@ export type PizzaType = {
 export type CartItemType = {
   _id?: string;
   id: number;
+  removalId: number;
   number?: number;
   ordered?: number;
   name?: string;

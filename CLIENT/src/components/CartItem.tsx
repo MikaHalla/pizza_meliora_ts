@@ -1,27 +1,25 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import AppContext from '../context/AppContext';
 import { CartItemType } from '../types/types';
 
 const CartItem = ({
   price,
   name,
-  id,
+  number,
+  removalId,
   added,
   removed,
 }: CartItemType) => {
   const { cartItems, setCartItems } = useContext(AppContext);
 
-  const removeItem = (id: number) => {
-    const newItems = [...cartItems];
-
-    const filteredItems = newItems.filter((i) => i.id !== id);
-
-    setCartItems([...filteredItems]);
+  const removeItem = (removalId: number) => {
+    const items = cartItems.filter((i) => i.removalId !== removalId);
+    setCartItems([...items]);
   };
 
   return (
     <li className="cart-item">
-      <p>{id}.</p>
+      <p>{number}.</p>
       <div>
         {name}
         <ul className="added-ingredients name">
@@ -49,7 +47,7 @@ const CartItem = ({
       </div>
       <i
         className="fa-solid fa-xmark"
-        onClick={() => removeItem(id)}
+        onClick={() => removeItem(removalId)}
       ></i>
     </li>
   );

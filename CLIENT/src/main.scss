@@ -613,6 +613,11 @@ footer {
     grid-template-columns: (15% 60% 20% 5%);
     justify-content: space-between;
 
+    &:not(:last-child) {
+      padding-bottom: 1em;
+      border-bottom: 1px dashed $secondary-dark;
+    }
+
     i {
       text-align: end;
       margin-top: 0.15em;

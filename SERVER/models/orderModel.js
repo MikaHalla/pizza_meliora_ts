@@ -1,13 +1,12 @@
-import mongoose from 'mongoose';
+import { mongoose } from 'mongoose';
 
 const ingredientSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
-  removed: {
-    type: Boolean,
-    required: true,
+  price: {
+    type: Number,
   },
 });
 
@@ -21,7 +20,8 @@ const itemSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  ingredients: [ingredientSchema],
+  customIngredients: [ingredientSchema],
+  removedIngredients: [ingredientSchema],
 });
 
 const orderSchema = mongoose.Schema(

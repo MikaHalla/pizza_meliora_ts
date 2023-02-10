@@ -49,7 +49,7 @@ const CustomizePizza = () => {
   }, []);
 
   const handleIngredientClick = (name: string) => {
-    const pizza: PizzaType = { ...activePizza };
+    const pizza = { ...activePizza };
     const ingredient = activePizza?.ingredients.find(
       (i) => i.name === name
     );
@@ -63,6 +63,7 @@ const CustomizePizza = () => {
     const ingredients = [...customIngredients];
     const ingredient = ingredients.find((i) => i.name === name);
     if (ingredient) {
+      console.log(ingredient);
       ingredient.checked = !ingredient.checked;
       setCustomIngredients([...ingredients]);
     }
@@ -75,13 +76,13 @@ const CustomizePizza = () => {
     const removedIngredients = activePizza.ingredients.filter(
       (i) => i.checked === false
     );
+    const removalId = Math.random();
     const pizza = {
       ...activePizza,
       customIngredients: [...addedIngredients],
       removedIngredients: [...removedIngredients],
+      removalId: removalId,
     };
-
-    console.log(pizza);
     setCartItems([...cartItems, { ...pizza }]);
   };
 

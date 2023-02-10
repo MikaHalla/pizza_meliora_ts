@@ -11,14 +11,32 @@ const ShoppingCartPage = () => {
 
   const [total, setTotal] = useState(0);
 
-  const sendOrder = () => {
-    console.log(cartItems);
+  const sendOrder = async () => {
+    const user = localStorage.getItem('currentUser');
+    if (!user) {
+      //TODO redirect to login
+      console.log('login plz');
+    } else {
+      const currentUser = JSON.parse(user);
+
+      const res = await fetch('http://localhost:5000/api/orders', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer: ${currentUser.token}`,
+        },
+        body: new URLSearchParams({
+          order: JSON.stringify(cartItems),
+        }),
+      });
+      const data = await res.json();
+      console.log(data);
+    }
     setCartItems([]);
   };
 
   const calculateTotal = () => {
     const subtotalPizzas = cartItems.reduce(
-      (prev, curr) => (curr.price ? curr.price + prev : 0 + prev),
+      (prev, curr) => curr?.price + prev,
       0
     );
 
@@ -49,8 +67,10 @@ const ShoppingCartPage = () => {
             <ul>
               {cartItems.map((item) => (
                 <CartItem
-                  key={item._id}
+                  key={item.removalId}
                   id={item.id}
+                  removalId={item.removalId}
+                  number={item.id}
                   name={item.name}
                   price={item.price}
                   added={item.customIngredients}
