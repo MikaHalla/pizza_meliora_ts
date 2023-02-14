@@ -16,10 +16,15 @@ const itemSchema = mongoose.Schema({
     required: true,
     ref: 'Pizza',
   },
+  name: {
+    type: String,
+    required: true,
+  },
   price: {
     type: Number,
     required: true,
   },
+  ingredients: [ingredientSchema],
   customIngredients: [ingredientSchema],
   removedIngredients: [ingredientSchema],
 });

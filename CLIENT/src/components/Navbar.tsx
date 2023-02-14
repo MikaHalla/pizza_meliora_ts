@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { CurrentUserType } from '../types/types';
 import Cart from './Cart';
@@ -22,10 +22,14 @@ const Navbar = () => {
 
   useEffect(() => fetchUser(), []);
 
+  const navigate = useNavigate();
+
+  const handleClick = () => navigate('/');
+
   return (
     <nav>
       <div className="wrap">
-        <div className="nav-left">
+        <div className="nav-left" onClick={() => handleClick()}>
           <div className="credentials">
             <p>
               <i className="fa-solid fa-phone"></i>012 / 345 67 89

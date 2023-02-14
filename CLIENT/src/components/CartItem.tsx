@@ -3,12 +3,12 @@ import AppContext from '../context/AppContext';
 import { CartItemType } from '../types/types';
 
 const CartItem = ({
+  id,
   price,
   name,
-  number,
   removalId,
-  added,
-  removed,
+  customIngredients,
+  removedIngredients,
 }: CartItemType) => {
   const { cartItems, setCartItems } = useContext(AppContext);
 
@@ -19,30 +19,30 @@ const CartItem = ({
 
   return (
     <li className="cart-item">
-      <p>{number}.</p>
+      <p>{id}.</p>
       <div>
         {name}
         <ul className="added-ingredients name">
-          {added
-            ? added.map((i) => <p key={i.name}>+ {i.name}</p>)
+          {customIngredients
+            ? customIngredients.map((i) => (
+                <p key={i.name}>+ {i.name}</p>
+              ))
             : null}
         </ul>
         <ul className="removed-ingredients name">
-          {removed
-            ? removed.map((i) => <p key={i.name}>- {i.name}</p>)
-            : null}
+          {removedIngredients?.map((i) => (
+            <p key={i.name}>- {i.name}</p>
+          ))}
         </ul>
       </div>
       <div>
         {price?.toFixed(2).replace('.', ',')} €
         <ul className="added-ingredients price">
-          {added
-            ? added.map((i) => (
-                <p key={i.price}>
-                  {i.price.toFixed(2).replace('.', ',')} €
-                </p>
-              ))
-            : null}
+          {customIngredients?.map((i) => (
+            <p key={i.name}>
+              {i.price.toFixed(2).replace('.', ',')} €
+            </p>
+          ))}
         </ul>
       </div>
       <i

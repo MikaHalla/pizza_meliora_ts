@@ -20,6 +20,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.flex {
+  display: flex;
+}
+
 body {
   background-color: $secondary-light;
   font-family: 'Muli';
@@ -562,6 +566,7 @@ footer {
         padding: 0.4em;
         width: 100%;
         border: 1px solid $primary-dark;
+        list-style: none;
 
         &:hover {
           cursor: pointer;
@@ -732,5 +737,80 @@ footer {
     font-size: 1.3em;
     border-radius: 0.3em;
     cursor: pointer;
+  }
+}
+
+//PROFILE PAGE
+.profile-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    margin: 5.5em 0 1em;
+
+    @media screen and (min-width: 768px) {
+      margin: 7em 0 2em;
+    }
+  }
+
+  .order-history {
+    .order-history-card {
+      background-color: #fff;
+      margin: 1em;
+      padding: 1em;
+      height: fit-content;
+      max-width: 512px;
+
+      h5 {
+        color: $primary-dark;
+      }
+
+      header {
+        margin: 1em 0 0.2em;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .item {
+        &:not(:last-child) {
+          padding-bottom: 1em;
+          border-bottom: 1px dashed $secondary-dark;
+        }
+
+        .ingredients {
+          display: flex;
+          flex-wrap: wrap;
+
+          max-width: 70%;
+
+          &.custom {
+            :first-child::before {
+              content: ('+ ');
+            }
+          }
+
+          &.removed {
+            :first-child::before {
+              content: ('- ');
+            }
+          }
+
+          :not(:last-child)::after {
+            content: ',';
+          }
+
+          :not(:first-child) {
+            padding-left: 0.4em;
+          }
+        }
+      }
+    }
+  }
+
+  .back-to-main-page {
+    margin: 3em;
   }
 }

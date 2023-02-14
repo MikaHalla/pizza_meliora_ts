@@ -1,9 +1,22 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import MobileMenu from '../components/MobileMenu';
 import Navbar from '../components/Navbar';
+import OrderHistoryItem from '../components/OrderHistoryItem';
 
 const ProfilePage = () => {
   const [orderHistory, setOrderHistory] = useState<any[]>([]);
+
+  const formatDate = (date: string) => {
+    return new Date(date).toLocaleDateString('sk-sk', {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+    });
+  };
 
   const fetchOrders = async () => {
     const user = localStorage.getItem('currentUser');
@@ -22,8 +35,13 @@ const ProfilePage = () => {
 
       const data = await res.json();
 
+      //format date
+      data.map(
+        (element: { niceDate: string; updatedAt: string }) =>
+          (element.niceDate = formatDate(element.updatedAt))
+      );
+
       setOrderHistory([...data]);
-      console.log(data);
     }
   };
 
@@ -33,14 +51,18 @@ const ProfilePage = () => {
 
   return (
     <>
-      {/* <Navbar /> */}
-      <section>
-        {orderHistory.map((i) => (
-          <div key={i.createdAt}>
-            <h1>{i.createdAt}</h1>
-          </div>
-        ))}
-        <Link to="/">Späť na hlavnú stránku.</Link>
+      <Navbar />
+      <MobileMenu />
+      <section className="profile-container">
+        <h2>História objednávok</h2>
+        <div className="order-history">
+          {orderHistory.map((i) => (
+            <OrderHistoryItem key={i.createdAt} {...i} />
+          ))}
+        </div>
+        <Link className="back-to-main-page" to="/">
+          Späť na hlavnú stránku.
+        </Link>
       </section>
     </>
   );

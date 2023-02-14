@@ -49,23 +49,20 @@ const CustomizePizza = () => {
   }, []);
 
   const handleIngredientClick = (name: string) => {
-    const pizza = { ...activePizza };
-    const ingredient = activePizza?.ingredients.find(
+    const ingredient = activePizza.ingredients.find(
       (i) => i.name === name
     );
     if (ingredient) {
       ingredient.checked = !ingredient.checked;
-      setActivePizza({ ...pizza });
+      setActivePizza({ ...activePizza });
     }
   };
 
   const handleCustomIngredientClick = (name: string) => {
-    const ingredients = [...customIngredients];
-    const ingredient = ingredients.find((i) => i.name === name);
+    const ingredient = customIngredients.find((i) => i.name === name);
     if (ingredient) {
-      console.log(ingredient);
       ingredient.checked = !ingredient.checked;
-      setCustomIngredients([...ingredients]);
+      setCustomIngredients([...customIngredients]);
     }
   };
 

@@ -12,9 +12,16 @@ export const sendOrder = asyncHandler(async (req, res) => {
   const simplifiedOrder = [];
 
   completeOrder.map((item) => {
+    const subTotalIngredients = item.customIngredients.reduce(
+      (prev, curr) => curr.price + prev,
+      0
+    );
+
     simplifiedOrder.push({
       id: item._id,
-      price: item.price,
+      name: item.name,
+      price: item.price + subTotalIngredients,
+      ingredients: item.ingredients,
       customIngredients: item.customIngredients,
       removedIngredients: item.removedIngredients,
     });

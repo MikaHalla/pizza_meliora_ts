@@ -66,16 +66,7 @@ const ShoppingCartPage = () => {
           {cartItems.length > 0 ? (
             <ul>
               {cartItems.map((item) => (
-                <CartItem
-                  key={item.removalId}
-                  id={item.id}
-                  removalId={item.removalId}
-                  number={item.id}
-                  name={item.name}
-                  price={item.price}
-                  added={item.customIngredients}
-                  removed={item.removedIngredients}
-                />
+                <CartItem key={item.removalId} {...item} />
               ))}
             </ul>
           ) : (
