@@ -1,16 +1,42 @@
-import { FormEvent, useContext, useState } from 'react';
+import { ChangeEvent, FormEvent, useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import FormInput from '../components/FormInput';
 import Modal from '../components/Modal';
 import AppContext from '../context/AppContext';
+import { FormInputType, FormValuesType } from '../types/types';
 import Home from './Home';
 
 const LoginPage = () => {
   const { setModalOpen } = useContext(AppContext);
-  const [loginData, setLoginData] = useState({
+  const navigate = useNavigate();
+  const [formValues, setFormValues] = useState<FormValuesType>({
     username: '',
     password: '',
+    confirmPassword: '',
   });
-  const navigate = useNavigate();
+
+  const formInputs: FormInputType[] = [
+    {
+      type: 'text',
+      name: 'username',
+      label: 'username',
+      placeholder: 'Užívateľské meno',
+      autoFocus: true,
+    },
+    {
+      type: 'password',
+      name: 'password',
+      label: 'password',
+      placeholder: 'Heslo',
+    },
+  ];
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     // send user data to server
@@ -21,13 +47,17 @@ const LoginPage = () => {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        name: loginData.username,
-        password: loginData.password,
+        name: formValues.username,
+        password: formValues.password,
       }),
     });
 
     // clean input fields
-    setLoginData({ username: '', password: '' });
+    setFormValues({
+      username: '',
+      password: '',
+      confirmPassword: '',
+    });
 
     // if success, store user/token, close modal and navigate to home
     if (res.status === 200) {
@@ -53,45 +83,20 @@ const LoginPage = () => {
           className="login-form form"
           onSubmit={(e) => handleSubmit(e)}
         >
-          <label>
-            Meno
-            <input
-              type="text"
-              value={loginData.username}
-              placeholder="Meno"
-              onChange={(e) =>
-                setLoginData({
-                  ...loginData,
-                  username: e.target.value,
-                })
-              }
+          {formInputs.map((input) => (
+            <FormInput
+              key={input.name}
+              onChange={(e) => handleChange(e)}
+              value={formValues[input.name]}
+              {...input}
             />
-            <span className="error-message">* Error message</span>
-          </label>
-
-          <label>
-            Heslo
-            <input
-              type="password"
-              className="error"
-              value={loginData.password}
-              placeholder="Heslo"
-              onChange={(e) =>
-                setLoginData({
-                  ...loginData,
-                  password: e.target.value,
-                })
-              }
-            />
-            <span className="error-message">* Error message</span>
-          </label>
-
+          ))}
           <button type="submit">Prihlásiť</button>
+          <p className="switch-form">
+            Nemám účet.
+            <Link to="/register">Registrovať</Link>
+          </p>
         </form>
-        <p>
-          Nemám účet.
-          <Link to="/register"> Registrovať.</Link>
-        </p>
       </Modal>
     </>
   );

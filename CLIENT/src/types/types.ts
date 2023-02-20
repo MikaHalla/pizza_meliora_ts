@@ -75,13 +75,13 @@ export type CurrentUserType = {
 } | null;
 
 export type FormInputType = {
-  type: string;
+  type?: string;
   name: string;
-  label: string;
-  placeholder: string;
-  errorMessage: string;
-  required: boolean;
-  pattern: string;
+  label?: string;
+  placeholder?: string;
+  errorMessage?: string;
+  required?: boolean;
+  pattern?: string;
   autoFocus?: boolean;
 };
 

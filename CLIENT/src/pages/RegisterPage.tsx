@@ -115,11 +115,11 @@ const RegisterPage = () => {
             />
           ))}
           <button>Registrovať</button>
+          <p className="switch-form">
+            Už mám účet.
+            <Link to="/login">Prihlásiť</Link>
+          </p>
         </form>
-        <p>
-          Už mám účet.
-          <Link to="/login">Prihlásiť.</Link>
-        </p>
       </Modal>
     </>
   );
