@@ -28,11 +28,12 @@ app.use('/api/pizza', pizzaRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/ingredients', ingredientRoutes);
 
-app.use(express.static(path.join(__dirname, './client/dist')));
-app.get('*', function (_, res) {
+app.use(express.static('./client/dist'));
+// app.use(express.static(path.join(__dirname, './client/dist')));
+app.get('*', (req, res) => {
   res.sendFile(
-    path.join(__dirname, './client/dist/index.html'),
-    function (err) {
+    path.resolve(__dirname, 'client', 'dist', 'index.html'),
+    (err) => {
       res.status(500).send(err);
     }
   );
