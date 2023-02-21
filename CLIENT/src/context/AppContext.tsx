@@ -21,7 +21,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const tgMobileMenu = () => setMobileMenu((prev) => !prev);
 
   const fetchPizzas = async () => {
-    const res = await fetch('http://localhost:5000/api/pizza', {
+    const res = await fetch('/api/pizza', {
       method: 'GET',
     });
     const data: PizzaType[] = await res.json();
