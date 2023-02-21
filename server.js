@@ -28,18 +28,9 @@ app.use('/api/pizza', pizzaRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/ingredients', ingredientRoutes);
 
-// app.use(express.static('./client/dist'));
-app.use(express.static(path.join(__dirname, './client/dist')));
-app.get('*', (req, res) => {
+app.use('*', (req, res) => {
   res.sendFile(
-    path.resolve(
-      __dirname,
-      'var',
-      'task',
-      'client',
-      'dist',
-      'index.html'
-    ),
+    path.join(__dirname, './client/dist/index.html'),
     (err) => {
       res.status(500).send(err);
     }
