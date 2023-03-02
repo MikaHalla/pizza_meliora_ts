@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import AppContext from '../context/AppContext';
+import Links from './Links';
 
 const MobileMenu = () => {
   const { mobileMenu, tgMobileMenu } = useContext(AppContext);
@@ -13,6 +14,7 @@ const MobileMenu = () => {
         className="fa-solid fa-circle-xmark"
         onClick={() => tgMobileMenu()}
       ></i>
+      <Links />
     </section>
   );
 };

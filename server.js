@@ -28,14 +28,9 @@ app.use('/api/pizza', pizzaRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/ingredients', ingredientRoutes);
 
-app.use('*', (req, res) => {
-  res.sendFile(
-    path.join(__dirname, './client/dist/index.html'),
-    (err) => {
-      res.status(500).send(err);
-    }
-  );
-});
+// app.use('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, './client/dist/index.html'));
+// });
 
 app.use(errorHandler);
 // app.use(authMiddleware);

@@ -10,6 +10,7 @@ import {
 const AppContext = createContext({} as AppContextProps);
 
 export const AppProvider = ({ children }: AppProviderProps) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [pizzas, setPizzas] = useState<PizzaType[]>([]);
   const [searchText, setSearchText] = useState('');
   const [pages, setPages] = useState(1);
@@ -21,13 +22,18 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const tgMobileMenu = () => setMobileMenu((prev) => !prev);
 
   const fetchPizzas = async () => {
-    const res = await fetch('/api/pizza', {
-      method: 'GET',
-    });
+    const res = await fetch(
+      'https://pizza-meliora.cyclic.app/api/pizza',
+      {
+        method: 'GET',
+      }
+    );
     const data: PizzaType[] = await res.json();
     data.sort((a, b) => (a.id > b.id ? 1 : -1));
+    data.forEach((data) => (data.price = data.price + 4));
 
     setPizzas(data);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -42,8 +48,6 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       pizza.category
         .toLowerCase()
         .includes(searchText.toLowerCase()) ||
-      (pizza.isFavorite &&
-        searchText.toLowerCase().includes('fav')) ||
       pizza.ingredients.some((ingredient) =>
         ingredient.name
           .toLowerCase()
@@ -70,6 +74,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   return (
     <AppContext.Provider
       value={{
+        isLoading,
         mobileMenu,
         tgMobileMenu,
         modalOpen,

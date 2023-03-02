@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 
 export type AppContextProps = {
+  isLoading: boolean;
   mobileMenu: boolean;
   tgMobileMenu: () => void;
   modalOpen: boolean;

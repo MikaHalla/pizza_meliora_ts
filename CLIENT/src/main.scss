@@ -67,6 +67,13 @@ body {
   }
 }
 
+.links {
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  gap: 2em;
+}
+
 //NAVBAR
 nav {
   width: 100%;
@@ -266,6 +273,14 @@ nav {
     &:focus {
       outline: 0;
     }
+  }
+}
+
+//CONTENT
+@media screen and (min-width: 768px) {
+  .content-box {
+    display: grid;
+    grid-template-columns: 45% 55%;
   }
 }
 
@@ -766,6 +781,7 @@ footer {
   }
 
   .order-history {
+    width: 100%;
     .order-history-card {
       background-color: #fff;
       margin: 1em;

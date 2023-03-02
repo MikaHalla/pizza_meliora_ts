@@ -19,15 +19,18 @@ const ShoppingCartPage = () => {
     } else {
       const currentUser = JSON.parse(user);
 
-      const res = await fetch('http://localhost:5000/api/orders', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer: ${currentUser.token}`,
-        },
-        body: new URLSearchParams({
-          order: JSON.stringify(cartItems),
-        }),
-      });
+      const res = await fetch(
+        'https://pizza-meliora.cyclic.app/api/orders',
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer: ${currentUser.token}`,
+          },
+          body: new URLSearchParams({
+            order: JSON.stringify(cartItems),
+          }),
+        }
+      );
       const data = await res.json();
       console.log(data);
     }

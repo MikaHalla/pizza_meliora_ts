@@ -26,12 +26,15 @@ const ProfilePage = () => {
     } else {
       const currentUser = JSON.parse(user);
 
-      const res = await fetch('http://localhost:5000/api/orders', {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer: ${currentUser.token}`,
-        },
-      });
+      const res = await fetch(
+        'https://pizza-meliora.cyclic.app/api/orders',
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer: ${currentUser.token}`,
+          },
+        }
+      );
 
       const data = await res.json();
 

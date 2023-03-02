@@ -13,7 +13,7 @@ const PizzaList = () => {
           <PizzaCard key={pizza._id} {...pizza} />
         ))}
       </ul>
-      <Pagination />
+      {displayedPizzas.length > 0 && <Pagination />}
     </section>
   );
 };

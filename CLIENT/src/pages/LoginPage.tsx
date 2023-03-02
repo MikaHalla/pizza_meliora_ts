@@ -41,16 +41,19 @@ const LoginPage = () => {
   const handleSubmit = async (e: FormEvent) => {
     // send user data to server
     e.preventDefault();
-    const res = await fetch('http://localhost:5000/api/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams({
-        name: formValues.username,
-        password: formValues.password,
-      }),
-    });
+    const res = await fetch(
+      'https://pizza-meliora.cyclic.app/api/users/login',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          name: formValues.username,
+          password: formValues.password,
+        }),
+      }
+    );
 
     // clean input fields
     setFormValues({

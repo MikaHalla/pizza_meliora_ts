@@ -5,12 +5,14 @@ import Ingredient from '../components/Ingredient';
 import Home from './Home';
 import Modal from '../components/Modal';
 import { PizzaType, IngredientType } from '../types/types';
+import Spinner from '../components/Spinner';
 
 const CustomizePizza = () => {
   const { _id } = useParams();
   const { pizzas, cartItems, setCartItems, setModalOpen } =
     useContext(AppContext);
 
+  const [isLoading, setIsLoading] = useState(true);
   const [activePizza, setActivePizza] = useState<PizzaType>({
     _id: '',
     id: 0,
@@ -31,11 +33,15 @@ const CustomizePizza = () => {
   >([]);
 
   const fetchCustomIngredients = async () => {
-    const res = await fetch('http://localhost:5000/api/ingredients', {
-      method: 'GET',
-    });
+    const res = await fetch(
+      'https://pizza-meliora.cyclic.app/api/ingredients',
+      {
+        method: 'GET',
+      }
+    );
     const data = await res.json();
     setCustomIngredients(data);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -111,20 +117,24 @@ const CustomizePizza = () => {
             </ul>
           </div>
           <div className="ingredient-container">
-            <ul className="ingredients custom">
-              {customIngredients.map((element, index) => (
-                <Ingredient
-                  key={index + element.name}
-                  name={element.name}
-                  price={element.price}
-                  removed={true}
-                  checked={element.checked}
-                  onClick={() =>
-                    handleCustomIngredientClick(element.name)
-                  }
-                />
-              ))}
-            </ul>
+            {isLoading ? (
+              <Spinner />
+            ) : (
+              <ul className="ingredients custom">
+                {customIngredients.map((element, index) => (
+                  <Ingredient
+                    key={index + element.name}
+                    name={element.name}
+                    price={element.price}
+                    removed={true}
+                    checked={element.checked}
+                    onClick={() =>
+                      handleCustomIngredientClick(element.name)
+                    }
+                  />
+                ))}
+              </ul>
+            )}
           </div>
 
           <footer>

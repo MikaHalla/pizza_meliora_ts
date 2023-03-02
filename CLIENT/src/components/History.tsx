@@ -1,3 +1,5 @@
+import pizzerista from '../assets/img/pexels-anna-shvets-5953573.jpg';
+
 const History = () => {
   return (
     <section className="history">
@@ -31,6 +33,12 @@ const History = () => {
         beatae. Dolores ipsam sunt nihil doloribus voluptatibus maxime
         aspernatur.
       </p>
+      <img
+        src={pizzerista}
+        width="100%"
+        style={{ marginTop: '2em' }}
+        alt=""
+      />
     </section>
   );
 };

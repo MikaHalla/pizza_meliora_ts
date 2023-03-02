@@ -1,11 +1,14 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { ChangeEvent, FormEvent, useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import FormInput from '../components/FormInput';
 import Modal from '../components/Modal';
+import AppContext from '../context/AppContext';
 import { FormInputType, FormValuesType } from '../types/types';
 import Home from './Home';
 
 const RegisterPage = () => {
+  const { setModalOpen } = useContext(AppContext);
+  const navigate = useNavigate();
   const [formValues, setFormValues] = useState<FormValuesType>({
     username: '',
     password: '',
@@ -30,7 +33,7 @@ const RegisterPage = () => {
       label: 'password',
       placeholder: 'Heslo',
       errorMessage:
-        'Heslo musí mať aspoň 8 znakov a musí obsahovať aspoň 1 číslo.',
+        'Heslo musí mať aspoň 8 znakov a musí obsahovať aspoň 1 veľké písmeno a 1 číslo.',
       required: true,
       pattern: `^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$`,
     },
@@ -52,7 +55,7 @@ const RegisterPage = () => {
     });
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const { username, password, confirmPassword } = formValues;
 
@@ -66,21 +69,9 @@ const RegisterPage = () => {
       return;
     }
 
-    fetchUserData(username, password);
-
-    setFormValues({
-      username: '',
-      password: '',
-      confirmPassword: '',
-    });
-  };
-
-  const fetchUserData = async (
-    username: string,
-    password: string
-  ) => {
+    // fetchUserData(username, password);
     const res = await fetch(
-      'http://localhost:5000/api/users/register',
+      'https://pizza-meliora.cyclic.app/api/users/register',
       {
         method: 'POST',
         headers: {
@@ -92,11 +83,29 @@ const RegisterPage = () => {
         }),
       }
     );
-    const data = await res.json();
-    console.log(data);
-  };
 
-  const resetFields = () => {};
+    // if success, store user/token, close modal and navigate to home
+    if (res.status === 201) {
+      setModalOpen(false);
+      const data = await res.json();
+      localStorage.setItem(
+        'currentUser',
+        JSON.stringify({ name: data.name, token: data.token })
+      );
+      navigate('/');
+
+      // if error
+    } else {
+      console.log(res);
+    }
+
+    // clean input fields
+    setFormValues({
+      username: '',
+      password: '',
+      confirmPassword: '',
+    });
+  };
 
   return (
     <>

@@ -9,7 +9,7 @@ const Search = () => {
       <p className="search-tips">
         <strong>TIP:</strong> Pri vyhľadávaní môžete použiť názov
         pizze, ale aj kategóriu <em>(napr. "pikantná")</em>, alebo
-        ingrediencu <em>(napr. "huby").</em>
+        ingredienciu <em>(napr. "huby").</em>
         <br />
       </p>
       <input
