@@ -4,6 +4,7 @@ export type AppContextProps = {
   isLoading: boolean;
   mobileMenu: boolean;
   tgMobileMenu: () => void;
+  setMobileMenu: (arg: boolean) => void;
   modalOpen: boolean;
   setModalOpen: (p: boolean) => void;
   pizzas: PizzaType[];
@@ -16,6 +17,9 @@ export type AppContextProps = {
   cartItems: CartItemType[];
   setCartItems: (cartItems: CartItemType[]) => void;
   setCurrentPage: (currentPage: number) => void;
+  currentUser: CurrentUserType;
+  fetchUser: () => void;
+  logoutUser: () => void;
 };
 
 export type AppProviderProps = {

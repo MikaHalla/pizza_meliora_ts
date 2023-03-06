@@ -5,6 +5,7 @@ import {
   AppProviderProps,
   PizzaType,
   CartItemType,
+  CurrentUserType,
 } from '../types/types';
 
 const AppContext = createContext({} as AppContextProps);
@@ -30,7 +31,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     );
     const data: PizzaType[] = await res.json();
     data.sort((a, b) => (a.id > b.id ? 1 : -1));
-    data.forEach((data) => (data.price = data.price + 4));
+    data.forEach((pizza) => (pizza.price = pizza.price + 4));
 
     setPizzas(data);
     setIsLoading(false);
@@ -71,11 +72,26 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     indexOfLastPizza
   );
 
+  const [currentUser, setCurrentUser] =
+    useState<CurrentUserType>(null);
+
+  const fetchUser = () => {
+    const user = localStorage.getItem('currentUser');
+    const parsedUser = user ? JSON.parse(user) : null;
+    setCurrentUser(parsedUser);
+  };
+
+  const logoutUser = () => {
+    localStorage.removeItem('currentUser');
+    setCurrentUser(null);
+  };
+
   return (
     <AppContext.Provider
       value={{
         isLoading,
         mobileMenu,
+        setMobileMenu,
         tgMobileMenu,
         modalOpen,
         setModalOpen,
@@ -89,6 +105,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         setCurrentPage,
         cartItems,
         setCartItems,
+        currentUser,
+        fetchUser,
+        logoutUser,
       }}
     >
       {children}

@@ -7,7 +7,7 @@ import { FormInputType, FormValuesType } from '../types/types';
 import Home from './Home';
 
 const LoginPage = () => {
-  const { setModalOpen } = useContext(AppContext);
+  const { setModalOpen, setMobileMenu } = useContext(AppContext);
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState<FormValuesType>({
     username: '',
@@ -85,6 +85,7 @@ const LoginPage = () => {
         <form
           className="login-form form"
           onSubmit={(e) => handleSubmit(e)}
+          onFocus={() => setMobileMenu(false)}
         >
           {formInputs.map((input) => (
             <FormInput

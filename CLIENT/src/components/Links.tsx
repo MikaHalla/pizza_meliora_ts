@@ -1,13 +1,21 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import AppContext from '../context/AppContext';
 
 const Links = () => {
+  const { currentUser, logoutUser } = useContext(AppContext);
   return (
     <div className="links">
-      <Link to="/">Domov</Link>
-      <Link to="/shopping-cart">Košík</Link>
-      <Link to="/login">Prihlásiť</Link>
-      <Link to="/register">Registrovať</Link>
-      <Link to="/profile">Profil</Link>
+      {currentUser ? (
+        <>
+          <Link to="/profile">{currentUser?.name}</Link>
+          <Link to="/" onClickCapture={() => logoutUser()}>
+            Odhlásiť
+          </Link>
+        </>
+      ) : (
+        <Link to="/login">Prihlásiť</Link>
+      )}
     </div>
   );
 };

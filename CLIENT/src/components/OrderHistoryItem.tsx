@@ -27,27 +27,27 @@ const OrderHistoryItem = ({
   const handleClick = () => {
     const confirm = window.confirm('Zopakovať objednávku?');
     navigate('/shopping-cart');
-
+    console.log(props.items);
     confirm ? console.log(props._id, props.items) : null;
   };
 
   return (
     <div className="order-history-card" onClick={() => handleClick()}>
       <h5>{niceDate}</h5>
-      {props.items.map((item) => (
-        <div className="item">
+      {props.items.map((item, index) => (
+        <div key={item.id + index} className="item">
           <header>
             <h4>{item.name}</h4>
             <p>{item.price.toFixed(2).replace('.', ',')} €</p>
           </header>
           <div className="ingredients custom">
             {item.customIngredients.map((ingredient) => (
-              <p>{ingredient.name}</p>
+              <p key={ingredient.name}>{ingredient.name}</p>
             ))}
           </div>
           <div className="ingredients removed">
             {item.removedIngredients.map((ingredient) => (
-              <p>{ingredient.name}</p>
+              <p key={ingredient.name}>{ingredient.name}</p>
             ))}
           </div>
         </div>
